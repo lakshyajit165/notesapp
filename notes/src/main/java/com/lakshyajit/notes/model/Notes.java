@@ -26,6 +26,7 @@ public class Notes extends DateAudit {
     @Size(max = 40)
     private String author;
 
+
     @Enumerated(EnumType.STRING)
     @Column(length = 60)
     private Status status;

@@ -146,7 +146,7 @@ public class NotesService {
             notesRepository.deleteById(noteId);
             return true;
         }else{
-            return false;
+            throw new ResourceNotFoundException("Note", "id", noteId);
         }
     }
 

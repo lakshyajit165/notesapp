@@ -96,7 +96,7 @@ public class NotesController {
     public ResponseEntity<?> deleteNote(@PathVariable Long noteId){
         if(notesService.deleteNote(noteId)){
             return ResponseEntity.ok()
-                    .body(new ApiResponse(true, "Poll deleted successfully!"));
+                    .body(new ApiResponse(true, "Note deleted successfully!"));
         }else{
             return ResponseEntity.status(400)
                     .body(new ApiResponse(false, "An error occurred!"));
