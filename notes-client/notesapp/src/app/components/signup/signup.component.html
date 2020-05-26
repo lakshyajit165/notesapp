@@ -1,0 +1,70 @@
+<div class="container">
+
+<div class="signup-form-card">
+<mat-card class="signup-card">
+    
+    <mat-card-header>
+        <h1 class="mat-headline header">Sign Up to create your notes!</h1>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <form class="signup-form" style="margin-top: 40px; margin-bottom: 30px">
+
+            <mat-form-field class="signup-full-width" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher"
+                       placeholder="John Doe">
+                <mat-hint>(between 5 and 40 characters)</mat-hint>
+                <mat-error *ngIf="nameFormControl.hasError('minLength') || nameFormControl.hasError('maxLength') || !nameFormControl.hasError('required')">
+                  Please enter a valid name 
+                </mat-error>
+                <mat-error *ngIf="nameFormControl.hasError('required')">
+                  Name is <strong>required!</strong>
+                </mat-error>
+            </mat-form-field>
+            <br/>
+            <mat-form-field class="signup-full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                     placeholder="Ex. pat@example.com">
+              <mat-hint>Your Email</mat-hint>
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required!</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="signup-full-width" appearance="outline">
+                <mat-label>UserName</mat-label>
+                <input matInput [formControl]="userNameFormControl" [errorStateMatcher]="matcher"
+                       placeholder="Ex. johndoe">
+                <mat-hint>(between 5 and 15 characters)</mat-hint>
+                <mat-error *ngIf="userNameFormControl.hasError('minLength') || userNameFormControl.hasError('maxLength') ||  !userNameFormControl.hasError('required')">
+                  Please enter a valid username
+                </mat-error>
+                <mat-error *ngIf="userNameFormControl.hasError('required')">
+                  Username is <strong>required!</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="signup-full-width" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+                        placeholder="Ex. john@123" type="password">
+                <mat-hint>(between 6 and 100 characters)</mat-hint>
+                <mat-error *ngIf="passwordFormControl.hasError('minLength') || passwordFormControl.hasError('maxLength') ||  !passwordFormControl.hasError('required')">
+                    Please enter a valid password
+                </mat-error>
+                <mat-error *ngIf="passwordFormControl.hasError('required')">
+                    Password is <strong>required!</strong>
+                </mat-error>
+            </mat-form-field>
+            <div class="space"></div>
+            <button mat-raised-button color="primary" class="signup-full-width">Sign Up</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+</div>
+</div>
