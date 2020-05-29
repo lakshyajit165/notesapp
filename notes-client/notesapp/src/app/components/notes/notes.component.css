@@ -1,0 +1,49 @@
+.example-card {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+    /* border: 1px solid red; */
+    
+}
+  
+.due {
+    border: 1px solid blue;
+    border-radius: 5px;
+    background-color: aliceblue;
+}
+
+.schedule-icon {
+    margin-top: 5px;
+}
+
+.title {
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.notes {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.notes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+mat-divider {
+    padding-bottom: 30px;
+}
+  
+mat-list-item {
+    display: inline-block;
+    height: auto;
+    width: auto;
+}
