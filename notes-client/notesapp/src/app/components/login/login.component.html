@@ -1,0 +1,46 @@
+<!-- <p>signin works!</p> -->
+<div class="container">
+
+    <div class="signin-form-card">
+    <mat-card class="signin-card">
+        
+        <mat-card-header>
+            <h1 class="header">Log In</h1>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <form class="signin-form" style="margin-top: 40px; margin-bottom: 30px">
+    
+            
+                <mat-form-field class="signin-full-width" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput [formControl]="usernameOrEmailFormControl" [errorStateMatcher]="matcher"
+                         placeholder="UserName or Email">
+                  <mat-hint>Your Email</mat-hint>
+                  <mat-error *ngIf="usernameOrEmailFormControl.hasError('required')">
+                    Username or Email <strong>required!</strong>
+                  </mat-error>
+                </mat-form-field>
+    
+                
+                <mat-form-field class="signin-full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+                            placeholder="Ex. john@123" type="password">
+                    <mat-hint>(between 6 and 100 characters)</mat-hint>
+                    <mat-error *ngIf="passwordFormControl.hasError('minLength') || passwordFormControl.hasError('maxLength') ||  !passwordFormControl.hasError('required')">
+                        Please enter a valid password
+                    </mat-error>
+                    <mat-error *ngIf="passwordFormControl.hasError('required')">
+                        Password is <strong>required!</strong>
+                    </mat-error>
+                </mat-form-field>
+                <div class="space"></div>
+                <button mat-raised-button color="primary" class="signin-full-width">Sign In</button>
+                <small class="signup-text">Sign Up to create an account here</small>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    </div>
+    </div>
+    
