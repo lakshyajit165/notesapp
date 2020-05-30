@@ -19,7 +19,10 @@
         mat-icon-button
         (click)="drawer.toggle()"
         >
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        
+        <mat-icon aria-label="Side nav toggle icon" *ngIf="!drawer.opened; else elseBlock">menu</mat-icon>
+        <ng-template #elseBlock><mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon></ng-template>
+     
       </button>
       <span>Scribble</span>
     </mat-toolbar>

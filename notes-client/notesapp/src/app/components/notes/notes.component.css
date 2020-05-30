@@ -3,6 +3,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
+    height: 300px;
 }
 
 .container {
@@ -46,4 +47,19 @@ mat-list-item {
     display: inline-block;
     height: auto;
     width: auto;
+}
+
+.card-bottom {
+    display: flex;
+}
+
+.card-actions {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.action-button {
+    margin: 0px 2px 2px 2px;
 }

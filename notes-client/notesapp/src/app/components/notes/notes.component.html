@@ -27,6 +27,7 @@
             A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
             bred for hunting.
           </p>
+          
           <mat-list>
             <mat-list-item>
               <mat-icon mat-list-icon>schedule</mat-icon>
@@ -34,15 +35,22 @@
             </mat-list-item>
             
           </mat-list>
-          <mat-chip-list>  
-            <mat-chip>
-                High
-            </mat-chip>
-            <mat-chip>
-                OnGoing
-            </mat-chip>
-            </mat-chip-list>
+          <div class="card-bottom">
+            <mat-chip-list>  
+                <mat-chip>
+                    High
+                </mat-chip>
+                <mat-chip>
+                    OnGoing
+                </mat-chip>
+                </mat-chip-list>
+                <div class="card-actions">
+                    <button mat-stroked-button color="primary" class="action-button"><mat-icon>edit</mat-icon></button>
+                    <button mat-stroked-button color="primary" class="action-button"><mat-icon>delete_outline</mat-icon></button>
+                </div>    
+            </div>
         </mat-card-content>
+
     </mat-card>
 
     <mat-card class="example-card">
