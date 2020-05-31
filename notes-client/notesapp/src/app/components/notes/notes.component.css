@@ -37,7 +37,7 @@
 .notes-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
+}    
 
 mat-divider {
     padding-bottom: 30px;

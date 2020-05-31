@@ -4,7 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotesComponent } from './components/notes/notes.component';
-
+import { AddNoteComponent } from './components/add-note/add-note.component';
 
 const routes: Routes = [
   {
@@ -23,6 +23,9 @@ const routes: Routes = [
     children: [
       {
         path: '', component: NotesComponent
+      },
+      {
+        path: 'notes/add', component: AddNoteComponent
       }
     ]  
   }

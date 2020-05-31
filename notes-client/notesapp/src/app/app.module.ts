@@ -18,6 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { NotesComponent } from './components/notes/notes.component';
+import { AddNoteComponent } from './components/add-note/add-note.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NotesComponent } from './components/notes/notes.component';
     SignupComponent,
     LoginComponent,
     HomeComponent,
-    NotesComponent
+    NotesComponent,
+    AddNoteComponent
   ],
   imports: [
     BrowserModule,

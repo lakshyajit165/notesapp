@@ -1,0 +1,58 @@
+<!-- <p>add-note works!</p> -->
+<section class="container">
+
+    <div class="addnote">
+        <h1 class="heading">Add your scribble!</h1>
+        <form class="addnote-form" style="margin-top: 40px; margin-bottom: 30px">
+
+            <mat-form-field class="addnote-full-width" appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput [formControl]="titleFormControl" [errorStateMatcher]="matcher"
+                       placeholder="Scribble Title">
+                <mat-hint>Between 10 and 80 characters</mat-hint>
+                <mat-error *ngIf="titleFormControl.hasError('minLength') || titleFormControl.hasError('maxLength') || !titleFormControl.hasError('required')">
+                    Please enter a valid title!
+                  </mat-error>
+                  <mat-error *ngIf="titleFormControl.hasError('required')">
+                    Title is <strong>required!</strong>
+                  </mat-error>
+            </mat-form-field>
+            
+            <div class="status-and-duedate">
+                <mat-form-field appearance="outline" class="status">
+                    <mat-label>Status</mat-label>
+                    <mat-select [formControl]="statusFormControl">
+                      <mat-option *ngFor="let state of status" [value]="state">
+                        {{state}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="statusFormControl.hasError('required')">
+                       Status is <strong>required!</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="date">
+                    <mat-label>Input & change events</mat-label>
+                    <input matInput [matDatepicker]="picker"
+                           (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+               
+            </div>
+
+            <mat-form-field class="addnote-full-width" appearance="outline">
+                <mat-label>Scribble description</mat-label>
+                <textarea matInput class="description"></textarea>
+                <mat-hint>Between 20 and 200 characters</mat-hint>
+                <mat-error *ngIf="descFormControl.hasError('minLength') || descFormControl.hasError('maxLength') || !descFormControl.hasError('required')">
+                    Please enter a valid description!
+                  </mat-error>
+                  <mat-error *ngIf="descFormControl.hasError('required')">
+                    Description is <strong>required!</strong>
+                  </mat-error>
+            </mat-form-field>
+        </form>
+    </div>
+</section>
+    
