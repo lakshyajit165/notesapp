@@ -51,7 +51,13 @@ export class AddNoteComponent implements OnInit {
     Validators.required,
   ]);
 
+  priorityFormControl = new FormControl('', [
+    Validators.required
+  ])
+
   events: string[] = [];
+  priority: string;
+  priorities: string[] = ['HIGH', 'MEDIUM', 'LOW'];
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
