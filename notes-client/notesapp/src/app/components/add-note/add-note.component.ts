@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl, AbstractControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -18,42 +19,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class AddNoteComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  formGroup: FormGroup;
   status = [
     'NOTSTARTED',
     'ONGOING',
     'COMPLETED'
   ];
-
-  date = new FormControl(new Date());
-
-  titleFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(10),
-    Validators.maxLength(80)
-  ]);
-
-  descFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(20),
-    Validators.maxLength(200)
-  ]);
-
-  statusFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-
-  dateFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-
-  priorityFormControl = new FormControl('', [
-    Validators.required
-  ])
 
   events: string[] = [];
   priority: string;
@@ -64,6 +35,74 @@ export class AddNoteComponent implements OnInit {
   }
 
   matcher = new MyErrorStateMatcher();
+
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
+
+  ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+        title: ['',  [Validators.required, Validators.minLength(10), Validators.maxLength(80)]],
+        status: ['', [Validators.required]],
+        date: ['', [Validators.required]],
+        description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(200)]],
+        priority: [this.priority, [Validators.required]]
+    });
+  
+  }
+
+
+  get titleValue() {
+    return this.formGroup.get('title');
+  }
+
+  get statusValue() {
+    return this.formGroup.get('status');
+  }
+
+  get dateValue() {
+    return this.formGroup.get('date');
+  }
+
+  get descriptionValue() {
+    return this.formGroup.get('description');
+  }
+
+  get priorityValue() {
+    return this.formGroup.get('priority');
+  }
+
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.log(this.formGroup.value);
+  }
+
+  
+
+  // date = new FormControl(new Date());
+
+  
+  // titleFormControl = new FormControl('', [
+   
+  // ]);
+
+  // descFormControl = new FormControl('', [
+    
+  // ]);
+
+  // statusFormControl = new FormControl('', [
+    
+  // ]);
+
+  // dateFormControl = new FormControl('', [
+    
+  // ]);
+
+  // priorityFormControl = new FormControl('', [
+    
+  // ])
+
+  
 
 
 }
