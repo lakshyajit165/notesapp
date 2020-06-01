@@ -1,8 +1,10 @@
 package com.lakshyajit.notes.payload;
 
+import com.lakshyajit.notes.model.Priority;
 import com.lakshyajit.notes.model.Status;
 
 import java.time.Instant;
+import java.util.Date;
 
 public class NotesResponse {
 
@@ -13,8 +15,20 @@ public class NotesResponse {
     private String author;
     private Instant createdAt;
     private Instant updatedAt;
+    private Priority priority;
+    private Date dueDate;
 
-    public NotesResponse(Long id, String title, String description, Status status, String author, Instant createdAt, Instant updatedAt) {
+    public NotesResponse(
+            Long id,
+            String title,
+            String description,
+            Status status,
+            String author,
+            Instant createdAt,
+            Instant updatedAt,
+            Priority priority,
+            Date dueDate
+    ) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -22,6 +36,8 @@ public class NotesResponse {
         this.author = author;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.priority = priority;
+        this.dueDate = dueDate;
     }
 
     public Long getId() {
@@ -78,5 +94,21 @@ public class NotesResponse {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 }

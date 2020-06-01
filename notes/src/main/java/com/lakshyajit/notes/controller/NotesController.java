@@ -1,5 +1,6 @@
 package com.lakshyajit.notes.controller;
 
+import com.lakshyajit.notes.exception.BadRequestException;
 import com.lakshyajit.notes.model.Notes;
 import com.lakshyajit.notes.payload.ApiResponse;
 import com.lakshyajit.notes.payload.NotesRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/api/v1/notes")
@@ -35,14 +37,21 @@ public class NotesController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createNote(@Valid @RequestBody NotesRequest notesRequest) {
 
-        Notes note = notesService.createNote(notesRequest);
+        try {
+            Notes note = notesService.createNote(notesRequest);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{noteId}")
-                .buildAndExpand(note.getId()).toUri();
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest().path("/{noteId}")
+                    .buildAndExpand(note.getId()).toUri();
 
-        return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Note Created Successfully!"));
+            return ResponseEntity.created(location)
+                    .body(new ApiResponse(true, "Note Created Successfully!"));
+        }catch(ParseException e) {
+
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Wrongly formatted date!"));
+        }
+
+
     }
 
     // get a note by its id
@@ -78,15 +87,19 @@ public class NotesController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> updateNote(@Valid @RequestBody NotesRequest notesRequest, @PathVariable Long noteId) {
 
-        Notes note = notesService.updateNote(notesRequest, noteId);
+        try {
+            Notes note = notesService.updateNote(notesRequest, noteId);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{noteId}")
-                .buildAndExpand(note.getId()).toUri();
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest().path("/{noteId}")
+                    .buildAndExpand(note.getId()).toUri();
 
-        return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Note updated successfully!"));
+            return ResponseEntity.created(location)
+                    .body(new ApiResponse(true, "Note updated successfully!"));
+        }catch(ParseException e){
 
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Wrongly formatted date!"));
+        }
     }
 
 

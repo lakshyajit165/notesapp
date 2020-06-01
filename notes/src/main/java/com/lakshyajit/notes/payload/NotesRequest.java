@@ -1,5 +1,6 @@
 package com.lakshyajit.notes.payload;
 
+import com.lakshyajit.notes.model.Priority;
 import com.lakshyajit.notes.model.Status;
 import org.hibernate.annotations.NaturalId;
 
@@ -8,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 public class NotesRequest {
 
@@ -26,6 +28,13 @@ public class NotesRequest {
     @Enumerated(EnumType.STRING)
     @Column(length = 60)
     private Status status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 60)
+    private Priority priority;
+
+    @Column
+    private String dueDate;
 
     public String getTitle() {
         return title;
@@ -57,6 +66,22 @@ public class NotesRequest {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 }
 

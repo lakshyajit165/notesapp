@@ -5,6 +5,7 @@ import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table(name = "notes")
@@ -30,6 +31,13 @@ public class Notes extends DateAudit {
     @Enumerated(EnumType.STRING)
     @Column(length = 60)
     private Status status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 60)
+    private Priority priority;
+
+    @Column
+    private Date dueDate;
 
     public Long getId() {
         return id;
@@ -69,5 +77,21 @@ public class Notes extends DateAudit {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 }

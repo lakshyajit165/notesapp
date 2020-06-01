@@ -19,10 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class NotesService {
@@ -32,13 +32,22 @@ public class NotesService {
 
     private static final Logger logger = LoggerFactory.getLogger(NotesService.class);
 
-    public Notes createNote(NotesRequest notesRequest){
+    public Notes createNote(NotesRequest notesRequest) throws ParseException {
 
         Notes note = new Notes();
         note.setTitle(notesRequest.getTitle());
         note.setDescription(notesRequest.getDescription());
         note.setAuthor(notesRequest.getAuthor());
         note.setStatus(notesRequest.getStatus());
+        note.setPriority(notesRequest.getPriority());
+
+        // convert string date to Date object;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        String dateInString = notesRequest.getDueDate();
+        Date dueDate = formatter.parse(dateInString);
+        note.setDueDate(dueDate);
+
 
         return notesRepository.save(note);
 
@@ -114,11 +123,13 @@ public class NotesService {
                 note.getStatus(),
                 note.getAuthor(),
                 note.getCreatedAt(),
-                note.getUpdatedAt());
+                note.getUpdatedAt(),
+                note.getPriority(),
+                note.getDueDate());
 
     }
 
-    public Notes updateNote(NotesRequest notesRequest, Long noteId){
+    public Notes updateNote(NotesRequest notesRequest, Long noteId) throws ParseException {
 
         if(notesRepository.existsById(noteId)){
             Instant now = Instant.now();
@@ -128,6 +139,13 @@ public class NotesService {
             presentNote.setTitle(notesRequest.getTitle());
             presentNote.setDescription(notesRequest.getDescription());
             presentNote.setStatus(notesRequest.getStatus());
+            presentNote.setPriority(notesRequest.getPriority());
+
+            // convert string date to Date object;
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            String dateInString = notesRequest.getDueDate();
+            Date dueDate = formatter.parse(dateInString);
+            presentNote.setDueDate(dueDate);
 
             return notesRepository.save(presentNote);
 

@@ -75,6 +75,7 @@ export class AddNoteComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.log(this.formGroup.value);
+    console.log(this.dateValue.value.toLocaleString().split(',')[0]);
   }
 
   

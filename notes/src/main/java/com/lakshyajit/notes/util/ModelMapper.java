@@ -19,7 +19,9 @@ public class ModelMapper {
                 note.getStatus(),
                 note.getAuthor(),
                 note.getCreatedAt(),
-                note.getUpdatedAt()
+                note.getUpdatedAt(),
+                note.getPriority(),
+                note.getDueDate()
         );
 
 
