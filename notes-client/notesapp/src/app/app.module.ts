@@ -22,6 +22,7 @@ import { AddNoteComponent } from './components/add-note/add-note.component';
 import { AuthService } from './services/auth/auth.service';
 import { NotesService } from './services/notes/notes.service';
 import { HttpClientModule } from '@angular/common/http'; 
+import { AuthGuard } from './services/auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatListModule,
     HttpClientModule
   ],
-  providers: [AuthService, NotesService],
+  providers: [AuthService, NotesService,  AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

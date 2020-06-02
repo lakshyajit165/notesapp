@@ -26,4 +26,11 @@ export class AuthService {
     localStorage.removeItem('key');
     localStorage.clear();
   }
+
+  isLoggedIn(): boolean {
+   // console.log(localStorage.getItem('key'));
+    if(localStorage.getItem('key'))
+      return true;
+    return false;
+  }
 }

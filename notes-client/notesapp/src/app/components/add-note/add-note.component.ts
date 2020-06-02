@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, AbstractControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { AuthService } from '../../services/auth/auth.service';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -37,7 +38,8 @@ export class AddNoteComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +79,7 @@ export class AddNoteComponent implements OnInit {
     console.log(this.formGroup.value);
     console.log(this.formGroup.value.date.toLocaleString().split(',')[0]);
     // console.log(this.dateValue.value.toLocaleString().split(',')[0]);
+    console.log(this.authService.isLoggedIn());
   }
 
   

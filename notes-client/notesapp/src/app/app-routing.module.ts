@@ -5,12 +5,13 @@ import { SignupComponent } from './components/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotesComponent } from './components/notes/notes.component';
 import { AddNoteComponent } from './components/add-note/add-note.component';
+import { AuthGuard } from './services/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: SignupComponent,
-
+    
   },
   {
     path: 'login',
@@ -20,12 +21,13 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
-        path: '', component: NotesComponent
+        path: '', component: NotesComponent, canActivateChild: [AuthGuard]
       },
       {
-        path: 'notes/add', component: AddNoteComponent
+        path: 'notes/add', component: AddNoteComponent, canActivateChild: [AuthGuard]
       }
     ]  
   }
