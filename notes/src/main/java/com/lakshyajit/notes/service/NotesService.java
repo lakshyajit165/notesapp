@@ -32,12 +32,12 @@ public class NotesService {
 
     private static final Logger logger = LoggerFactory.getLogger(NotesService.class);
 
-    public Notes createNote(NotesRequest notesRequest) throws ParseException {
+    public Notes createNote(NotesRequest notesRequest, UserPrincipal currentUser) throws ParseException {
 
         Notes note = new Notes();
         note.setTitle(notesRequest.getTitle());
         note.setDescription(notesRequest.getDescription());
-        note.setAuthor(notesRequest.getAuthor());
+        note.setAuthor(currentUser.getEmail());
         note.setStatus(notesRequest.getStatus());
         note.setPriority(notesRequest.getPriority());
 

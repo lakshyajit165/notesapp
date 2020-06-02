@@ -35,10 +35,10 @@ public class NotesController {
     // create a note
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> createNote(@Valid @RequestBody NotesRequest notesRequest) {
+    public ResponseEntity<?> createNote(@Valid @RequestBody NotesRequest notesRequest, @CurrentUser UserPrincipal currentUser) {
 
         try {
-            Notes note = notesService.createNote(notesRequest);
+            Notes note = notesService.createNote(notesRequest, currentUser);
 
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{noteId}")

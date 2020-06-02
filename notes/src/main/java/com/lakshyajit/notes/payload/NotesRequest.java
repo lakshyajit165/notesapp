@@ -21,10 +21,6 @@ public class NotesRequest {
     @Size(max = 200)
     private String description;
 
-    @NotBlank
-    @Size(max = 40)
-    private String author;
-
     @Enumerated(EnumType.STRING)
     @Column(length = 60)
     private Status status;
@@ -50,14 +46,6 @@ public class NotesRequest {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public Status getStatus() {
