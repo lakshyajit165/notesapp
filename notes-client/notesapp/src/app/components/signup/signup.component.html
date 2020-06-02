@@ -62,8 +62,13 @@
                 </mat-error>
             </mat-form-field>
             <div class="space"></div>
-            <button mat-raised-button type="submit" (click)="onSubmit();"color="primary" class="signup-full-width">Sign Up</button>
-            <small class="login-text">Already have an account? Login here</small>
+            <button [disabled]="!formGroup.valid" mat-raised-button type="submit" (click)="onSubmit();"color="primary" class="signup-full-width">Sign Up</button>
+            <small class="login-text mat-body">
+              Already have an account? 
+              <a routerLink="/login" style="text-decoration: none; margin-left: 5px; color:blue">
+                <strong>Login here</strong>
+              </a>  
+            </small>
         </form>
     </mat-card-content>
 </mat-card>

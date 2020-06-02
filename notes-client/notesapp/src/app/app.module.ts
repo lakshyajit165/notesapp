@@ -23,6 +23,8 @@ import { AuthService } from './services/auth/auth.service';
 import { NotesService } from './services/notes/notes.service';
 import { HttpClientModule } from '@angular/common/http'; 
 import { AuthGuard } from './services/auth/auth.guard';
+import { AuthRouteGuard } from './services/auth/authroute.guard';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { AuthGuard } from './services/auth/auth.guard';
     LoginComponent,
     HomeComponent,
     NotesComponent,
-    AddNoteComponent
+    AddNoteComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,7 @@ import { AuthGuard } from './services/auth/auth.guard';
     MatListModule,
     HttpClientModule
   ],
-  providers: [AuthService, NotesService,  AuthGuard],
+  providers: [AuthService, NotesService,  AuthGuard, AuthRouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

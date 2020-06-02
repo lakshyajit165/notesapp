@@ -6,17 +6,24 @@ import { HomeComponent } from './components/home/home.component';
 import { NotesComponent } from './components/notes/notes.component';
 import { AddNoteComponent } from './components/add-note/add-note.component';
 import { AuthGuard } from './services/auth/auth.guard';
+import { AboutComponent } from './components/about/about.component';
+import { AuthRouteGuard } from './services/auth/authroute.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: SignupComponent,
-    
+    canActivate: [AuthRouteGuard]
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    canActivate: [AuthRouteGuard]
   },
   {
     path: 'login',
     component: LoginComponent,
-
+    canActivate: [AuthRouteGuard]
   },
   {
     path: 'home',
@@ -25,6 +32,9 @@ const routes: Routes = [
     children: [
       {
         path: '', component: NotesComponent, canActivateChild: [AuthGuard]
+      },
+      {
+        path: 'about', component: AboutComponent, canActivateChild: [AuthGuard]
       },
       {
         path: 'notes/add', component: AddNoteComponent, canActivateChild: [AuthGuard]
