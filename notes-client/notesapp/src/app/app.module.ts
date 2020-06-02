@@ -19,6 +19,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { NotesComponent } from './components/notes/notes.component';
 import { AddNoteComponent } from './components/add-note/add-note.component';
+import { AuthService } from './services/auth/auth.service';
+import { NotesService } from './services/notes/notes.service';
+import { HttpClientModule } from '@angular/common/http'; 
 
 @NgModule({
   declarations: [
@@ -41,9 +44,10 @@ import { AddNoteComponent } from './components/add-note/add-note.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService, NotesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

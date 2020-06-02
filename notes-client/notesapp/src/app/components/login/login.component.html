@@ -9,15 +9,15 @@
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
-            <form class="signin-form" style="margin-top: 40px; margin-bottom: 30px">
+            <form [formGroup]="formGroup" class="signin-form" style="margin-top: 40px; margin-bottom: 30px">
     
             
                 <mat-form-field class="signin-full-width" appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input matInput [formControl]="usernameOrEmailFormControl" [errorStateMatcher]="matcher"
+                  <mat-label>UserName or Email</mat-label>
+                  <input matInput formControlName="usernameOrEmail" [errorStateMatcher]="matcher"
                          placeholder="UserName or Email">
-                  <mat-hint>Your Email</mat-hint>
-                  <mat-error *ngIf="usernameOrEmailFormControl.hasError('required')">
+                  <mat-hint>Your username or email</mat-hint>
+                  <mat-error *ngIf="usernameOrEmailValue.hasError('required')">
                     Username or Email <strong>required!</strong>
                   </mat-error>
                 </mat-form-field>
@@ -25,18 +25,18 @@
                 
                 <mat-form-field class="signin-full-width" appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+                    <input matInput formControlName="password" [errorStateMatcher]="matcher"
                             placeholder="Ex. john@123" type="password">
                     <mat-hint>(between 6 and 100 characters)</mat-hint>
-                    <mat-error *ngIf="passwordFormControl.hasError('minLength') || passwordFormControl.hasError('maxLength') ||  !passwordFormControl.hasError('required')">
+                    <mat-error *ngIf="passwordValue.hasError('minLength') || passwordValue.hasError('maxLength') ||  !passwordValue.hasError('required')">
                         Please enter a valid password
                     </mat-error>
-                    <mat-error *ngIf="passwordFormControl.hasError('required')">
+                    <mat-error *ngIf="passwordValue.hasError('required')">
                         Password is <strong>required!</strong>
                     </mat-error>
                 </mat-form-field>
                 <div class="space"></div>
-                <button mat-raised-button color="primary" class="signin-full-width">Sign In</button>
+                <button mat-raised-button (click)="onSubmit();" color="primary" class="signin-full-width">Sign In</button>
                 <small class="signup-text">Sign Up to create an account here</small>
             </form>
         </mat-card-content>

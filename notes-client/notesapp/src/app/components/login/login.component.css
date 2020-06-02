@@ -19,11 +19,13 @@
 }
 
 .header {
-    display: flex;
-    justify-content: center;
     margin-bottom: 30px;
+    margin-right:20px;
 }
 
+mat-card-header {
+    justify-content: center;
+}
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

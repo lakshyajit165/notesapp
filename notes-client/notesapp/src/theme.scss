@@ -3,7 +3,7 @@
 @include mat-core();
 
 $my-theme-primary: mat-palette($mat-blue);
-$my-theme-accent: mat-palette($mat-grey);
+$my-theme-accent: mat-palette($mat-pink);
 $my-theme-warn: mat-palette($mat-red);
 $my-theme-font: Questrial, sans-serif;
 $custom-typography: mat-typography-config($font-family: $my-theme-font);

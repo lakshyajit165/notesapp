@@ -63,3 +63,12 @@ mat-list-item {
 .action-button {
     margin: 0px 2px 2px 2px;
 }
+
+.calendar-icon {
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.duedate {
+    margin-bottom: 10px;
+}

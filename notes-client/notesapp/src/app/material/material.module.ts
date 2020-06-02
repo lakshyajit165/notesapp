@@ -13,6 +13,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const materialComponents = [
    MatCardModule,
@@ -28,7 +29,8 @@ const materialComponents = [
    MatDatepickerModule,
    MatNativeDateModule,
    MatRadioModule,
-   MatFormFieldModule
+   MatFormFieldModule,
+   MatSnackBarModule
 ];
 
 @NgModule({

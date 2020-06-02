@@ -49,3 +49,11 @@
     display: flex;
     justify-content: center;
 }
+
+.mat-header {
+    margin-bottom: 30px;
+}
+
+.signup-form {
+    margin-top: 30px;
+}
