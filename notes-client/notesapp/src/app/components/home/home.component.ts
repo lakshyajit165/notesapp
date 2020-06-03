@@ -10,6 +10,8 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { NotesService } from 'src/app/services/notes/notes.service';
+import { INoteResponse } from 'src/app/model/INoteResponse';
 
 @Component({
   selector: 'app-home',
@@ -28,11 +30,13 @@ export class HomeComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   
+  
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    
   ) {
     
   }
@@ -46,6 +50,8 @@ export class HomeComponent {
     this.router.navigate(['login']);
     this.openSnackBar('Logout successful!');
   }
+
+  
 
   openSnackBar(msg: string) {
     this._snackBar.open(msg, 'Close', {

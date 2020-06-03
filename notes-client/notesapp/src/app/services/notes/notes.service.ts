@@ -21,8 +21,15 @@ export class NotesService {
 
     let requestHeader = this.getHeaders();
 
-    console.log(localStorage.getItem('key'));
+    // console.log(localStorage.getItem('key'));
     return this.http.post(this.serviceRoute + 'api/v1/notes', note, { headers: requestHeader });
+    
+  }
+
+  getMyNotes(page: number): Observable<object> {
+    
+    let requestHeader = this.getHeaders();
+    return this.http.get(this.serviceRoute + `api/v1/notes/mynotes?page=${page}&size=8`, { headers: requestHeader });
     
   }
 

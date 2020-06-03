@@ -11,19 +11,19 @@
 
     </div>
     <div class="notes-container">
-    <mat-card class="example-card">
+    <mat-card class="example-card" *ngFor="let note of notes">
         <mat-card-header>
           <mat-card-title> 
-           <h3>My Sample Note Lorem ipsum dolor sit amet</h3>
+           <h3>{{ note.title }}</h3>
         </mat-card-title>
-          <mat-card-subtitle>Created On: 20/5/2020</mat-card-subtitle>
+          <mat-card-subtitle>Created On: {{ note.createdAt | date:'dd/MM/yyyy' }}</mat-card-subtitle>
           
         </mat-card-header>
        
         <mat-card-content>
            
-          <p class="mat-body-1">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu
+          <p class="mat-body">
+            {{ note.description }}
           </p>
           
           <mat-list>
@@ -32,31 +32,31 @@
               <div mat-line class="duedate">
                 
                 <strong>Due by: </strong>
-                <span>25/5/2020</span>
+                <span>{{ note.dueDate |  date:'dd/MM/yyyy'}}</span>
               </div>
               
             </mat-list-item>
             
           </mat-list>
           <div class="card-bottom">
-            <mat-chip-list>  
+            <mat-chip-list style="text-align: center;">  
                 <mat-chip>
-                    High
+                {{ note.priority | titlecase }}
                 </mat-chip>
                 <mat-chip>
-                    OnGoing
+                    {{ note.status | titlecase }}
                 </mat-chip>
-                </mat-chip-list>
+            </mat-chip-list>
                 <div class="card-actions">
-                    <button mat-stroked-button color="primary" class="action-button"><mat-icon>edit</mat-icon></button>
-                    <button mat-stroked-button color="primary" class="action-button"><mat-icon>delete_outline</mat-icon></button>
+                    <button mat-mini-fab color="primary" class="action-button"><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab color="primary" class="action-button"><mat-icon>delete_outline</mat-icon></button>
                 </div>    
             </div>
         </mat-card-content>
 
     </mat-card>
 
-    <mat-card class="example-card">
+    <!-- <mat-card class="example-card">
         <mat-card-header>
           <mat-card-title> 
            <h3>My Sample Note Lorem ipsum dolor sit amet</h3>
@@ -157,7 +157,7 @@
             </mat-chip>
             </mat-chip-list>
         </mat-card-content>
-    </mat-card>
+    </mat-card> -->
     </div>
 </div>
 
