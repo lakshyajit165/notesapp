@@ -40,6 +40,8 @@ public class NotesController {
         try {
             Notes note = notesService.createNote(notesRequest, currentUser);
 
+//            System.out.println(currentUser);
+
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{noteId}")
                     .buildAndExpand(note.getId()).toUri();

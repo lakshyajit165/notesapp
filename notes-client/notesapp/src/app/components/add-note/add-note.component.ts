@@ -3,6 +3,14 @@ import {FormBuilder, FormGroup, FormControl, AbstractControl, FormGroupDirective
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import { AuthService } from '../../services/auth/auth.service';
+import { ICreateNote } from 'src/app/model/ICreateNote';
+import { NotesService } from 'src/app/services/notes/notes.service';
+import { Router } from '@angular/router';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -31,15 +39,31 @@ export class AddNoteComponent implements OnInit {
   priority: string;
   priorities: string[] = ['HIGH', 'MEDIUM', 'LOW'];
 
+  note: ICreateNote = {
+    title: '',
+    description: '',
+    status: '',
+    dueDate: '',
+    priority: ''
+  }
+
+  loading: boolean = false;
+
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   matcher = new MyErrorStateMatcher();
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private notesService: NotesService,
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -76,10 +100,38 @@ export class AddNoteComponent implements OnInit {
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.log(this.formGroup.value);
-    console.log(this.formGroup.value.date.toLocaleString().split(',')[0]);
-    // console.log(this.dateValue.value.toLocaleString().split(',')[0]);
-    console.log(this.authService.isLoggedIn());
+    // console.log(this.formGroup.value);
+    // console.log(this.formGroup.value.date.toLocaleString().split(',')[0]);
+   
+    // console.log(this.authService.isLoggedIn());
+
+
+    this.note.title = this.formGroup.value.title;
+    this.note.description = this.formGroup.value.description;
+    this.note.priority = this.formGroup.value.priority;
+    this.note.dueDate = this.formGroup.value.date.toLocaleString().split(',')[0];
+    this.note.status = this.formGroup.value.status;
+
+    // console.log(this.note);
+    this.loading = true;
+    
+    this.notesService.createNote(this.note).subscribe(res => {
+        this.loading = false;
+        this.router.navigate(['/home']);
+        this.openSnackBar('Scribble created successfully!')
+    }, err => {
+        this.loading = false;
+        this.openSnackBar('An error occurred!')
+    })
+
+  }
+
+  openSnackBar(msg: string) {
+    this._snackBar.open(msg, 'Close', {
+      duration: 5000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
 
   

@@ -38,6 +38,9 @@ public class NotesService {
         note.setTitle(notesRequest.getTitle());
         note.setDescription(notesRequest.getDescription());
         note.setAuthor(currentUser.getEmail());
+
+//        System.out.println(currentUser.getEmail());
+
         note.setStatus(notesRequest.getStatus());
         note.setPriority(notesRequest.getPriority());
 

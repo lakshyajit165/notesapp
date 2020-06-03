@@ -14,6 +14,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const materialComponents = [
    MatCardModule,
@@ -30,7 +31,8 @@ const materialComponents = [
    MatNativeDateModule,
    MatRadioModule,
    MatFormFieldModule,
-   MatSnackBarModule
+   MatSnackBarModule,
+   MatProgressSpinnerModule
 ];
 
 @NgModule({

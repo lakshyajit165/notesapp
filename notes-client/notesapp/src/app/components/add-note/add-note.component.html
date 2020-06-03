@@ -74,7 +74,11 @@
                   </mat-error>
             </mat-form-field>
             <div class="submit-btn">
-              <button mat-raised-button type="submit" color="primary">Submit</button>
+              <button mat-raised-button type="submit" color="primary" *ngIf="!loading; else elseBlock">Submit</button>
+              <ng-template #elseBlock>
+                <mat-spinner diameter="40"></mat-spinner>
+              </ng-template>
+             
             </div>
         </form>
     </div>
