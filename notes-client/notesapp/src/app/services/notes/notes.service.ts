@@ -33,6 +33,12 @@ export class NotesService {
     
   }
 
+  updateNote(id: number, note: ICreateNote): Observable<object> {
+    
+    let requestHeader = this.getHeaders();
+    return this.http.put(this.serviceRoute + `api/v1/notes/${id}`, note, { headers: requestHeader });
+  }
+
   deleteNote(id: number): Observable<object> {
 
     let requestHeader = this.getHeaders();

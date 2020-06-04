@@ -48,8 +48,8 @@
                 </mat-chip>
             </mat-chip-list>
                 <div class="card-actions">
-                    <button mat-mini-fab color="primary" class="action-button"><mat-icon>edit</mat-icon></button>
-                    <button mat-mini-fab color="primary" (click)=" openDialog(note.id)" class="action-button"><mat-icon>delete_outline</mat-icon></button>
+                    <button mat-mini-fab color="primary" (click)="openEditDialog(note)" class="action-button"><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab color="primary" (click)="openDeleteDialog(note.id)" class="action-button"><mat-icon>delete_outline</mat-icon></button>
                 </div>    
             </div>
         </mat-card-content>

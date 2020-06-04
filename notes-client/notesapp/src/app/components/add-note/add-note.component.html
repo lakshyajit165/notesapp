@@ -39,6 +39,7 @@
                           (dateChange)="addEvent('change', $event)"
                           formControlName="date"
                           [errorStateMatcher]="matcher"
+                          [min]="mindate"
                         >
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker style="width: 100%"></mat-datepicker>

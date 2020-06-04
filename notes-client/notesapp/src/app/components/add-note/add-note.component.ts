@@ -48,6 +48,7 @@ export class AddNoteComponent implements OnInit {
   }
 
   loading: boolean = false;
+  mindate: Date = new Date();  
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
