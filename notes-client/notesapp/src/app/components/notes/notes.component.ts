@@ -10,6 +10,11 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+
 import { ICreateNote } from 'src/app/model/ICreateNote';
 import { Router } from '@angular/router';
 
@@ -31,6 +36,7 @@ export interface EditDialogData {
   styleUrls: ['./notes.component.css']
 })
 export class NotesComponent implements OnInit {
+
 
   content: string = 'content';
   last: string = 'last';
@@ -77,14 +83,14 @@ export class NotesComponent implements OnInit {
 
   openEditDialog(note: INoteResponse) {
     const dialogRef = this.dialog.open(EditNoteDialog, {
-      maxWidth: '600px',
-      minWidth: '400px',
       maxHeight: '100vh',
-      data: {noteData: note}
+      data: {noteData: note},
+      disableClose: true
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      if(!result){
+      // console.log(result);
+      if(!result && result !== undefined){
         this.getMyNotes(0);
       }
         
@@ -125,6 +131,18 @@ export class NotesComponent implements OnInit {
     });
   }
 
+  // getEditDialogMinWidth(): string {
+  //   let minwidth = '';
+  //   this.isHandset$.subscribe(res => {
+  //      minwidth = '300px';
+  //    }, err => {
+  //      minwidth = '500px';
+  //    });
+
+  //    return minwidth;
+  //  }
+ 
+
 
 }
 
@@ -135,7 +153,8 @@ export class NotesComponent implements OnInit {
 })
 export class EditNoteDialog implements OnInit{
 
-  
+ 
+
   formGroup: FormGroup;
   status = [
     'NOTSTARTED',
@@ -159,6 +178,8 @@ export class EditNoteDialog implements OnInit{
   loading: boolean = false;
 
   matcher = new MyErrorStateMatcher();
+
+  editDialogMinWidth: string = '';
 
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
@@ -248,6 +269,7 @@ export class EditNoteDialog implements OnInit{
     });
   }
 
+  
 
 
   

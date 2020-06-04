@@ -91,7 +91,7 @@ public class NotesService {
 
         String email = currentUser.getEmail();
 
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "updatedAt");
         Page<Notes> notes = notesRepository.findByAuthor(email, pageable);
 
         if(notes.getNumberOfElements() == 0 || email.equals("")) {
