@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "notesapp": {
@@ -25,8 +25,8 @@
             ],
             "styles": [
               {
-								"input": "src/theme.scss"
-							},
+                "input": "src/theme.scss"
+              },
               "src/styles.css"
             ],
             "scripts": []
@@ -122,6 +122,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "notesapp"
+    }
+  },
+  "defaultProject": "notesapp",
+  "cli": {
+    "analytics": "d07ca6ac-b58f-45b8-b5dd-84227c1fbaa5"
+  }
 }

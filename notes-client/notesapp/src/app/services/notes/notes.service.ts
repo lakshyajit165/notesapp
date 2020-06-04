@@ -33,6 +33,13 @@ export class NotesService {
     
   }
 
+  deleteNote(id: number): Observable<object> {
+
+    let requestHeader = this.getHeaders();
+    return this.http.delete(this.serviceRoute + `api/v1/notes/${id}`, { headers: requestHeader });
+    
+  }
+
   getHeaders() : HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',

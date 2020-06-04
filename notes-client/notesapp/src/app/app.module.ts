@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { NotesComponent } from './components/notes/notes.component';
+import { NotesComponent, DeleteNoteDialog } from './components/notes/notes.component';
 import { AddNoteComponent } from './components/add-note/add-note.component';
 import { AuthService } from './services/auth/auth.service';
 import { NotesService } from './services/notes/notes.service';
@@ -34,8 +34,11 @@ import { AboutComponent } from './components/about/about.component';
     HomeComponent,
     NotesComponent,
     AddNoteComponent,
-    AboutComponent
+    AboutComponent,
+    DeleteNoteDialog
   ],
+   
+  entryComponents: [DeleteNoteDialog],
   imports: [
     BrowserModule,
     FormsModule,
