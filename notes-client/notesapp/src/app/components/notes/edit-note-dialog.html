@@ -78,7 +78,7 @@
         <!-- <p>{{ response }}</p> -->
         <div *ngIf="response === ''; else responseBlock">
             <button mat-raised-button type="submit" (click)="onSubmit()" class="action-btn" [disabled]="!formGroup.valid" color="primary" >Edit</button>
-            <button mat-raised-button mat-dialog-close class="action-btn" [mat-dialog-close]="true">Close</button>
+            <button mat-raised-button mat-dialog-close class="action-btn" [mat-dialog-close]="true" color="accent">Close</button>
         </div>
         <ng-template #responseBlock>
             <div>

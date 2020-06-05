@@ -49,7 +49,8 @@ export class HomeComponent implements OnInit{
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;
-   
+    this.overlayContainer.getContainerElement().classList.remove('dark-theme');
+    this.overlayContainer.getContainerElement().classList.add('light-theme');
   }
 
   toggleDarkTheme(checked: boolean) {
@@ -82,16 +83,16 @@ export class HomeComponent implements OnInit{
 
   openSnackBar(msg: string) {
     
-    let theme = '';
-    console.log(msg);
-    this.themeService.isDarkTheme.subscribe(res => {
-      theme = 'light-theme';
-    }, err => {
-      theme = 'dark-theme';
-    });
+    // let theme = '';
+    // console.log(msg);
+    // this.themeService.isDarkTheme.subscribe(res => {
+    //   theme = 'light-theme';
+    // }, err => {
+    //   theme = 'dark-theme';
+    // });
 
     this._snackBar.open(msg, 'Close', {
-      panelClass: theme,
+     
       duration: 5000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,

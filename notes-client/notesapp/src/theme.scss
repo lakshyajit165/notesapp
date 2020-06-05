@@ -27,7 +27,7 @@ $my-theme: mat-light-theme($my-theme-primary, $my-theme-accent, $my-theme-warn);
 // light theme(default)
 .light-theme {
     $light-theme-primary: mat-palette($mat-blue);
-    $light-theme-accent: mat-palette($mat-pink);
+    $light-theme-accent: mat-palette($mat-deep-orange, A100);
     $light-theme-warn: mat-palette($mat-red);
     $light-theme-font: Questrial, sans-serif;
     $custom-typography: mat-typography-config($font-family: $light-theme-font);
