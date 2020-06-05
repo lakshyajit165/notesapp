@@ -3,7 +3,8 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
-    max-height: auto;
+    max-height: 280px;
+    min-height: 100px;
 }
 
 .container {
@@ -36,11 +37,17 @@
 
 .notes-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    grid-template-rows: auto; /* top row is 100px in height */
-    grid-auto-rows: auto;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    /* grid-template-rows: auto; 
+    grid-auto-rows: auto; */
+    grid-template-rows: repeat(2, minmax(200px, auto));
+    
   
 }    
+
+.note-description {
+    word-wrap: break-word;
+}
 
 mat-divider {
     padding-bottom: 30px;
@@ -59,6 +66,7 @@ mat-chip-list {
 }
 .card-bottom {
     display: flex;
+    margin-bottom: auto;
 }
 
 .card-actions {

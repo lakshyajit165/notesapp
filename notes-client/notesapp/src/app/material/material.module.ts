@@ -16,6 +16,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 const materialComponents = [
    MatCardModule,
@@ -34,7 +36,9 @@ const materialComponents = [
    MatFormFieldModule,
    MatSnackBarModule,
    MatProgressSpinnerModule,
-   MatDialogModule
+   MatDialogModule,
+   MatSlideToggleModule
+
 ];
 
 @NgModule({

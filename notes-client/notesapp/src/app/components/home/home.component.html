@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container" [ngClass]="{'dark-theme': isDarkTheme | async}">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -9,6 +9,14 @@
       <a mat-list-item (click)="routeFunction('home/about')"><span class="nav-list-icon"><mat-icon>info</mat-icon></span>About</a>
       <a mat-list-item (click)="routeFunction('home/notes/add')"><span class="nav-list-icon"><mat-icon>note_add</mat-icon></span>Add Scribble</a>
       <a mat-list-item href="#"><span class="nav-list-icon"><mat-icon>archive</mat-icon></span>Archive</a>
+      <a mat-list-item> 
+        <mat-slide-toggle
+        class="example-margin"
+        [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)"
+       >
+        Dark Theme
+        </mat-slide-toggle>
+      </a>
       <a mat-list-item (click)="logout()"><span class="nav-list-icon"><mat-icon>exit_to_app</mat-icon></span>Logout</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -28,7 +36,9 @@
       <span>Scribble</span>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <div style="height: 90vh">
+    <div class="mat-app-background" style="min-height: 100vh;
+    display: flex;
+    flex-direction: column;">
       <router-outlet></router-outlet>
     </div>
     

@@ -17,6 +17,8 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { ICreateNote } from 'src/app/model/ICreateNote';
 import { Router } from '@angular/router';
+import { ThemeService } from 'src/app/services/theme/theme.service';
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -57,12 +59,16 @@ export class NotesComponent implements OnInit {
   constructor(
     private notesService: NotesService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private themeService: ThemeService
+  ) { 
+    
+  }
 
   ngOnInit(): void {
     this.getMyNotes(0);
   }
+
 
   getMyNotes(page: number) {
     this.notesService.getMyNotes(page).subscribe(res => {
@@ -90,8 +96,14 @@ export class NotesComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
-      if(!result && result !== undefined){
+      if(result){
         this.getMyNotes(0);
+        // this.themeService.isDarkTheme.subscribe(res => {
+        //   console.log(res);
+        // }, err => {
+        //   this.toggleDarkTheme(false);
+        // });
+     
       }
         
     });
@@ -103,6 +115,7 @@ export class NotesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         this.deleteNote(id);
+        
       }
         
     });
@@ -211,15 +224,21 @@ export class EditNoteDialog implements OnInit{
     return this.formGroup.get('priority');
   }
 
+  isDarkTheme: Observable<boolean>;
+
   constructor(
     public dialogRef: MatDialogRef<EditNoteDialog>,
     @Inject(MAT_DIALOG_DATA) public data: EditDialogData,
     private formBuilder: FormBuilder,
     private notesService: NotesService,
     private router: Router,
-    private _snackBar: MatSnackBar) {}
+    private _snackBar: MatSnackBar,
+    private themeService: ThemeService) {}
   
   ngOnInit(): void {
+
+    this.isDarkTheme = this.themeService.isDarkTheme;
+    console.log(this.isDarkTheme);
     console.log(this.data['noteData']);
     let duedate = new Date(this.data['noteData']['dueDate']);
     // console.log(date);
