@@ -33,6 +33,13 @@ export class NotesService {
     
   }
 
+  getCompletedNotes(page: number): Observable<object> {
+
+    let requestHeader = this.getHeaders();
+    return this.http.get(this.serviceRoute + `api/v1/notes/mynotes/completed?page=${page}&size=8`, { headers: requestHeader });
+
+  }
+
   updateNote(id: number, note: ICreateNote): Observable<object> {
     
     let requestHeader = this.getHeaders();

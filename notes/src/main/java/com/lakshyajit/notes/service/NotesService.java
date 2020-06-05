@@ -114,6 +114,35 @@ public class NotesService {
 
     }
 
+    public PagedResponse<NotesResponse> getCompletedNotesByUser(UserPrincipal currentUser, int page, int size) {
+
+        validatePageNumberAndSize(page, size);
+
+        String email = currentUser.getEmail();
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "updatedAt");
+        Page<Notes> notes = notesRepository.findByStatusCompleted(email, pageable);
+
+        if(notes.getNumberOfElements() == 0 || email.equals("")) {
+            return new PagedResponse<>(Collections.emptyList(), notes.getNumber(),
+                    notes.getSize(), notes.getTotalElements(), notes.getTotalPages(), notes.isLast());
+        }
+
+        List<NotesResponse> notesResponses = notes.map(note -> {
+            return ModelMapper.mapNoteToNoteResponse(note);
+        }).getContent();
+
+        return new PagedResponse<>(
+                notesResponses,
+                notes.getNumber(),
+                notes.getSize(),
+                notes.getTotalElements(),
+                notes.getTotalPages(),
+                notes.isLast()
+        );
+    }
+
+
     public NotesResponse getNoteById(Long noteId) {
         Notes note = notesRepository.findById(noteId).orElseThrow(
                 () -> new ResourceNotFoundException("Note", "id", noteId)

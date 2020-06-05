@@ -85,6 +85,15 @@ public class NotesController {
         return notesService.getNotesByUser(currentUser, page, size);
     }
 
+    // get completed notes by a user
+    @GetMapping("/mynotes/completed")
+    @PreAuthorize("hasRole('USER')")
+    public PagedResponse<NotesResponse> getCompletedNotesByUser(@CurrentUser UserPrincipal currentUser,
+                                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+                                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+        return notesService.getCompletedNotesByUser(currentUser, page, size);
+    }
+
     @PutMapping("/{noteId}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> updateNote(@Valid @RequestBody NotesRequest notesRequest, @PathVariable Long noteId) {

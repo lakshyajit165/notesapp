@@ -1,23 +1,23 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { NotesService } from 'src/app/services/notes/notes.service';
 import { INoteResponse } from 'src/app/model/INoteResponse';
-import {FormBuilder, FormGroup, FormControl, AbstractControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { Observable } from 'rxjs';
+import { NotesService } from 'src/app/services/notes/notes.service';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm, FormControl } from '@angular/forms';
 import { ICreateNote } from 'src/app/model/ICreateNote';
+import {ErrorStateMatcher} from '@angular/material/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+
 import { Router } from '@angular/router';
 import { ThemeService } from 'src/app/services/theme/theme.service';
+
+
+
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -33,11 +33,22 @@ export interface EditDialogData {
 }
 
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.css']
+  selector: 'app-archive',
+  templateUrl: './archive.component.html',
+  styleUrls: ['./archive.component.css']
 })
-export class NotesComponent implements OnInit {
+
+export class ArchiveComponent implements OnInit {
+  
+  constructor(
+    private notesService: NotesService,
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
+  ) { }
+
+  ngOnInit(): void {
+    this.getCompletedNotes(0);
+  }
 
 
   content: string = 'content';
@@ -56,22 +67,8 @@ export class NotesComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(
-    private notesService: NotesService,
-    public dialog: MatDialog,
-    private _snackBar: MatSnackBar,
-    private themeService: ThemeService
-  ) { 
-    
-  }
-
-  ngOnInit(): void {
-    this.getMyNotes(0);
-  }
-
-
-  getMyNotes(page: number) {
-    this.notesService.getMyNotes(page).subscribe(res => {
+  getCompletedNotes(page: number) {
+    this.notesService.getCompletedNotes(page).subscribe(res => {
       console.log(res);
       this.notes = res[this.content];
       this.lastpage = res[this.last];
@@ -87,8 +84,25 @@ export class NotesComponent implements OnInit {
     })
   }
 
+  openDeleteDialog(id: number) {
+    const dialogRef = this.dialog.open(DeleteCompletedNoteDialog);
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.deleteNote(id);
+        
+      }
+        
+    });
+  }
+
+  editNote(note: INoteResponse) {
+
+  }
+
+
   openEditDialog(note: INoteResponse) {
-    const dialogRef = this.dialog.open(EditNoteDialog, {
+    const dialogRef = this.dialog.open(EditCompletedNoteDialog, {
       maxHeight: '100vh',
       data: {noteData: note},
       disableClose: true
@@ -97,7 +111,7 @@ export class NotesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
       if(result){
-        this.getMyNotes(0);
+        this.getCompletedNotes(0);
         // this.themeService.isDarkTheme.subscribe(res => {
         //   console.log(res);
         // }, err => {
@@ -109,28 +123,12 @@ export class NotesComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(id: number) {
-    const dialogRef = this.dialog.open(DeleteNoteDialog);
-    
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.deleteNote(id);
-        
-      }
-        
-    });
-  }
-
-  // editNote(note: INoteResponse) {
-
-  // }
-
   deleteNote(id: number) {
     this.notesService.deleteNote(id).subscribe(res => {
       
       // show snackbar and load the notes
       this.openSnackBar('Scribble deleted!');
-      this.getMyNotes(0);
+      this.getCompletedNotes(0);
     }, err => {
       this.openSnackBar('Error deleting scribble!');
     })
@@ -144,27 +142,15 @@ export class NotesComponent implements OnInit {
     });
   }
 
-  // getEditDialogMinWidth(): string {
-  //   let minwidth = '';
-  //   this.isHandset$.subscribe(res => {
-  //      minwidth = '300px';
-  //    }, err => {
-  //      minwidth = '500px';
-  //    });
-
-  //    return minwidth;
-  //  }
- 
-
 
 }
 
 @Component({
-  selector: 'edit-note-dialog',
-  templateUrl: './edit-note-dialog.html',
-  styleUrls: ['./edit-note-dialog.css']
+  selector: 'edit-completed-note-dialog',
+  templateUrl: './edit-completed-note-dialog.html',
+  styleUrls: ['./edit-completed-note-dialog.css']
 })
-export class EditNoteDialog implements OnInit{
+export class EditCompletedNoteDialog implements OnInit{
 
  
 
@@ -227,7 +213,7 @@ export class EditNoteDialog implements OnInit{
   isDarkTheme: Observable<boolean>;
 
   constructor(
-    public dialogRef: MatDialogRef<EditNoteDialog>,
+    public dialogRef: MatDialogRef<EditCompletedNoteDialog>,
     @Inject(MAT_DIALOG_DATA) public data: EditDialogData,
     private formBuilder: FormBuilder,
     private notesService: NotesService,
@@ -294,12 +280,9 @@ export class EditNoteDialog implements OnInit{
   
 }
 
-
 @Component({
-  selector: 'delete-note-dialog',
-  templateUrl: 'delete-note-dialog.html'
+  selector: 'delete-completed-note-dialog',
+  templateUrl: 'delete-completed-note-dialog.html'
 })
-export class DeleteNoteDialog {}
-
-
+export class DeleteCompletedNoteDialog {}
 

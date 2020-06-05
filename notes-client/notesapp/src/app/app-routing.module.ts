@@ -8,6 +8,7 @@ import { AddNoteComponent } from './components/add-note/add-note.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AboutComponent } from './components/about/about.component';
 import { AuthRouteGuard } from './services/auth/authroute.guard';
+import { ArchiveComponent } from './components/archive/archive.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,10 @@ const routes: Routes = [
         path: 'about', component: AboutComponent, canActivateChild: [AuthGuard]
       },
       {
-        path: 'notes/add', component: AddNoteComponent, canActivateChild: [AuthGuard]
+        path: 'scribbles/add', component: AddNoteComponent, canActivateChild: [AuthGuard]
+      },
+      {
+        path: 'scribbles/archive', component: ArchiveComponent, canActivateChild: [AuthGuard]
       }
     ]  
   }

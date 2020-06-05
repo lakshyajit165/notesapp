@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AuthRouteGuard } from './services/auth/authroute.guard';
 import { AboutComponent } from './components/about/about.component';
+import { ArchiveComponent, DeleteCompletedNoteDialog, EditCompletedNoteDialog } from './components/archive/archive.component';
 
 @NgModule({
   declarations: [
@@ -36,10 +37,13 @@ import { AboutComponent } from './components/about/about.component';
     AddNoteComponent,
     AboutComponent,
     DeleteNoteDialog,
-    EditNoteDialog
+    EditNoteDialog,
+    ArchiveComponent,
+    DeleteCompletedNoteDialog,
+    EditCompletedNoteDialog
   ],
    
-  entryComponents: [DeleteNoteDialog, EditNoteDialog],
+  entryComponents: [DeleteNoteDialog, DeleteCompletedNoteDialog, EditNoteDialog, EditCompletedNoteDialog],
   imports: [
     BrowserModule,
     FormsModule,

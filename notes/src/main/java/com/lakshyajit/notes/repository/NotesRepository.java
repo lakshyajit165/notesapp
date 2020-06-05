@@ -20,6 +20,9 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
     @Query(value = "SELECT n FROM Notes n WHERE author = :authorEmail AND status != 'COMPLETED'")
     Page<Notes> findByAuthor(@Param("authorEmail") String authorMail, Pageable pageable);
 
+    @Query(value = "SELECT n from Notes n WHERE author = :authorEmail AND status = 'COMPLETED'")
+    Page<Notes> findByStatusCompleted(@Param("authorEmail") String authorMail, Pageable pageable);
+
     long countByAuthor(String authorMail);
 
 }
