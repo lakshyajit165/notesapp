@@ -18,6 +18,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { ICreateNote } from 'src/app/model/ICreateNote';
 import { Router } from '@angular/router';
 import { ThemeService } from 'src/app/services/theme/theme.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -43,15 +44,17 @@ export class NotesComponent implements OnInit {
   content: string = 'content';
   last: string = 'last';
   totalPages: string = 'totalPages';
+  totalElements: string = 'totalElements';
 
   lastpage: boolean;
   totalpages: number;
+  currentpage: number = 1;
+  totalnotes: number;
   notes: INoteResponse[];
   loading: boolean = true;
   error: boolean = false;
   
-  animal: string;
-  name: string;
+  notesArraySize: number;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -66,6 +69,8 @@ export class NotesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    this.currentpage = 1;
     this.getMyNotes(0);
   }
 
@@ -76,10 +81,12 @@ export class NotesComponent implements OnInit {
       this.notes = res[this.content];
       this.lastpage = res[this.last];
       this.totalpages = res[this.totalPages];
+      this.totalnotes = res[this.totalElements];
       
       this.loading = false;
       this.error = false;
 
+      this.notesArraySize = this.notes.length;
       // console.log(this.notes);
     }, err => {
       this.error = true;
@@ -97,7 +104,7 @@ export class NotesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
       if(result){
-        this.getMyNotes(0);
+        this.getMyNotes(this.currentpage - 1);
         // this.themeService.isDarkTheme.subscribe(res => {
         //   console.log(res);
         // }, err => {
@@ -128,12 +135,39 @@ export class NotesComponent implements OnInit {
   deleteNote(id: number) {
     this.notesService.deleteNote(id).subscribe(res => {
       
+      this.totalnotes -= 1;
       // show snackbar and load the notes
       this.openSnackBar('Scribble deleted!');
-      this.getMyNotes(0);
+
+      if(this.totalnotes % 8 === 0 && this.totalnotes !== 0)
+        this.currentpage = this.currentpage - 1;
+      this.getMyNotes(this.currentpage - 1);
     }, err => {
       this.openSnackBar('Error deleting scribble!');
     })
+  }
+
+  nextPage() {
+    this.currentpage += 1;
+    this.getMyNotes(this.currentpage - 1);
+  }
+
+  previousPage() {
+    this.currentpage -= 1;
+    this.getMyNotes(this.currentpage - 1);
+  }
+
+  isFirstPage(): boolean {
+    if(this.currentpage === 1)
+      return true;
+  }
+
+  isLastPage(): boolean {
+    return this.lastpage;
+  }
+
+  notesEmpty() : boolean {
+    return this.notesArraySize === 0;
   }
 
   openSnackBar(msg: string) {

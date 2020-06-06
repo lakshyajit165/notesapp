@@ -10,6 +10,10 @@
     <div class="search-bar">
 
     </div>
+    <div class="notes-empty" *ngIf="notesEmpty()">
+      <h2 class="mat-display-1">No scribbles created yet!</h2>
+      <p class="mat-title">Click <a routerLink="/home/scribbles/add" style="text-decoration: none; color: blue;">here </a> to create one.</p>
+    </div>
     <div class="notes-container masonry-layout">
     <mat-card class="example-card" *ngFor="let note of notes">
         <mat-card-header>
@@ -56,108 +60,17 @@
 
     </mat-card>
 
-    <!-- <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title> 
-           <h3>My Sample Note Lorem ipsum dolor sit amet</h3>
-        </mat-card-title>
-          <mat-card-subtitle>Created On: 20/5/2020</mat-card-subtitle>
-          
-        </mat-card-header>
-       
-        <mat-card-content>
-           
-          <p style="text-align: justify;">
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-          </p>
-          <mat-list>
-            <mat-list-item>
-              <mat-icon mat-list-icon>schedule</mat-icon>
-              <div mat-line><strong>Due by: </strong><span>25/5/2020</span></div>
-            </mat-list-item>
-            
-          </mat-list>
-          <mat-chip-list>  
-            <mat-chip>
-                High
-            </mat-chip>
-            <mat-chip>
-                Completed
-            </mat-chip>
-            </mat-chip-list>
-        </mat-card-content>
-    </mat-card>
+  
+    </div>
 
-    <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title> 
-           <h3>My Sample Note Lorem ipsum dolor sit amet</h3>
-        </mat-card-title>
-          <mat-card-subtitle>Created On: 20/5/2020</mat-card-subtitle>
-          
-        </mat-card-header>
-       
-        <mat-card-content>
-           
-          <p style="text-align: justify;">
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-          </p>
-          <mat-list>
-            <mat-list-item>
-              <mat-icon mat-list-icon>schedule</mat-icon>
-              <div mat-line><strong>Due by: </strong><span>25/5/2020</span></div>
-            </mat-list-item>
-            
-          </mat-list>
-          <mat-chip-list>  
-            <mat-chip>
-                High
-            </mat-chip>
-            <mat-chip>
-                OnGoing
-            </mat-chip>
-            </mat-chip-list>
-          
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title> 
-           <h3>My Sample Note Lorem ipsum dolor sit amet</h3>
-        </mat-card-title>
-          <mat-card-subtitle>Created On: 20/5/2020</mat-card-subtitle>
-          
-        </mat-card-header>
-       
-        <mat-card-content>
-           
-          <p style="text-align: justify;">
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-          </p>
-          <mat-list>
-            <mat-list-item>
-              <mat-icon mat-list-icon>schedule</mat-icon>
-              <div mat-line><strong>Due by: </strong><span>25/5/2020</span></div>
-            </mat-list-item>
-            
-          </mat-list>
-          <mat-chip-list>  
-            <mat-chip>
-                High
-            </mat-chip>
-            <mat-chip>
-                OnGoing
-            </mat-chip>
-            </mat-chip-list>
-        </mat-card-content>
-    </mat-card> -->
+    <div class="pagination" *ngIf="!notesEmpty()">
+      <button mat-mini-fab color="accent" [disabled]="isFirstPage()" (click)="previousPage()" class="prev" aria-label="Example icon button with a menu icon">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <p class="mat-title page-number">Page {{ this.currentpage }} / {{ this.totalpages }}</p>
+      <button mat-mini-fab color="accent" [disabled]="isLastPage()" (click)="nextPage()" class="next" aria-label="Example icon button with a menu icon">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
     </div>
 </div>
 

@@ -8,6 +8,6 @@
     padding: 0;
 }
 
-body {
-    overflow: hidden;
-}
+/* body {
+    overflow: scroll;
+} */

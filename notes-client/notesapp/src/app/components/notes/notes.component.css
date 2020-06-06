@@ -88,3 +88,26 @@ mat-chip-list {
 .duedate {
     margin-bottom: 10px;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-number {
+    margin-top: 5px
+}
+
+.prev {
+    margin-right: 10px;
+}
+
+.next {
+    margin-left: 10px;
+}
+
+.notes-empty {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
