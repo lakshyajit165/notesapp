@@ -3,13 +3,46 @@
 
 <div class="notes">
     <div class="title">
-        <h1 class="mat-display-2">My Scribbles</h1>
+        <h1 class="mat-display-2" style="margin-bottom: 15px">My Scribbles</h1>
        
     </div>
-    <mat-divider></mat-divider>
-    <div class="search-bar">
+    <div class="search-bar" >
+      <form class="search-form" >
+        <mat-form-field class="filter-field" appearance="outline">
+          <mat-label>Search your scribbles</mat-label>
+          <input matInput [(ngModel)]="searchTerm" name="searchTerm">
+         
+        </mat-form-field>
+        
+        <mat-form-field class="filter-field" appearance="outline">
+          <mat-label>Filter by Priority</mat-label>
+          <mat-select [(ngModel)]="filterPriority" name="filterPriority">
+            <mat-option value="HIGH">High</mat-option>
+            <mat-option value="MEDIUM">Medium </mat-option>
+            <mat-option value="LOW">Low</mat-option>
+          </mat-select>
+        </mat-form-field>
+       
+        <mat-form-field class="filter-field" appearance="outline">
+          <mat-label>Filter by Status</mat-label>
+          <mat-select [(ngModel)]="filterStatus" name="filterStatus">
+            <mat-option value="NOTSTARTED">Not Started</mat-option>
+            <mat-option value="ONGOING" >On Going </mat-option>
+            
+          </mat-select>
+        </mat-form-field>
 
+        
+        
+      </form>
+      <div style="padding-right: 30px; margin-bottom: 20px; text-align: right;">
+        <button mat-stroked-button color="primary" [disabled]="canFilter()" (click)="onClickFilter()" class="filter-btn">Apply Filter</button>
+        <button mat-stroked-button color="primary" [disabled]="canFilter()" (click)="resetFilter()" class="filter-btn">Clear Filter</button>
+      </div>
+      
     </div>
+    <mat-divider></mat-divider>
+    
     <div class="notes-empty" *ngIf="notesEmpty() && totalnotes === 0">
       <h2 class="mat-display-1">No scribbles created yet!</h2>
       <p class="mat-title">Click <a routerLink="/home/scribbles/add" style="text-decoration: none; color: blue;">here </a> to create one.</p>

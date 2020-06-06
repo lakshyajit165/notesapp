@@ -26,6 +26,8 @@ import { AuthGuard } from './services/auth/auth.guard';
 import { AuthRouteGuard } from './services/auth/authroute.guard';
 import { AboutComponent } from './components/about/about.component';
 import { ArchiveComponent, DeleteCompletedNoteDialog, EditCompletedNoteDialog } from './components/archive/archive.component';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { ArchiveComponent, DeleteCompletedNoteDialog, EditCompletedNoteDialog } 
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule
   ],
   providers: [AuthService, NotesService,  AuthGuard, AuthRouteGuard],
   bootstrap: [AppComponent]

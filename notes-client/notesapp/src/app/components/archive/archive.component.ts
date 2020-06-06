@@ -137,14 +137,18 @@ export class ArchiveComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
       console.log(result, this.totalnotes);
-      if(result && (this.totalnotes-1) % 8 === 0 && (this.totalnotes-1) !== 0){
+      if(result && (this.totalnotes-1) % 8 === 0 && (this.totalnotes-1) !== 0 && this.currentpage !== 0){
 
         this.currentpage = this.currentpage - 1;
         console.log(this.currentpage);
       }
       
       console.log(this.currentpage);
-      this.getCompletedNotes(this.currentpage - 1);
+
+      if(this.currentpage === 0 || this.currentpage === -1)
+        this.getCompletedNotes(0);
+      else
+        this.getCompletedNotes(this.currentpage - 1);
        
       
         
@@ -175,6 +179,8 @@ export class ArchiveComponent implements OnInit {
 
       if(this.totalnotes % 8 === 0 && this.totalnotes !== 0)
         this.currentpage = this.currentpage - 1;
+      
+      console.log(this.currentpage);
       this.getCompletedNotes(this.currentpage - 1);
     }, err => {
       this.openSnackBar('Error deleting scribble!');

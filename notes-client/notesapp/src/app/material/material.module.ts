@@ -17,7 +17,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import {MatMenuModule} from '@angular/material/menu';
 
 const materialComponents = [
    MatCardModule,
@@ -37,7 +37,8 @@ const materialComponents = [
    MatSnackBarModule,
    MatProgressSpinnerModule,
    MatDialogModule,
-   MatSlideToggleModule
+   MatSlideToggleModule,
+   MatMenuModule
 
 ];
 

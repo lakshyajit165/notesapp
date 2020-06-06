@@ -53,6 +53,12 @@ export class NotesService {
     
   }
 
+  getFilteredNotes(page: number, searchTerm: string, status: string, priority: string) {
+
+    let requestHeader = this.getHeaders();
+    return this.http.get(this.serviceRoute + `api/v1/notes/mynotes/filtered?search=${searchTerm}&status=${status}&priority=${priority}&page=${page}&size=8`, { headers: requestHeader });
+  }
+
   getHeaders() : HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',

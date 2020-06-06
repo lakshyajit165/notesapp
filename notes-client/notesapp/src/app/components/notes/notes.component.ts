@@ -56,6 +56,10 @@ export class NotesComponent implements OnInit {
   
   notesArraySize: number;
 
+  searchTerm: string = '';
+  filterPriority: string = '';
+  filterStatus: string = '';
+
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
@@ -111,7 +115,11 @@ export class NotesComponent implements OnInit {
       }
       
       console.log(this.currentpage);
-      this.getMyNotes(this.currentpage - 1);
+
+      if(this.canFilter())
+        this.getMyNotes(this.currentpage - 1);
+      else
+        this.applyFilter(this.currentpage - 1);
         // this.themeService.isDarkTheme.subscribe(res => {
         //   console.log(res);
         // }, err => {
@@ -147,21 +155,75 @@ export class NotesComponent implements OnInit {
       this.openSnackBar('Scribble deleted!');
 
       if(this.totalnotes % 8 === 0 && this.totalnotes !== 0)
-        this.currentpage = this.currentpage - 1;
-      this.getMyNotes(this.currentpage - 1);
+        
+          this.currentpage = this.currentpage - 1;
+
+          if(this.canFilter())
+            this.getMyNotes(this.currentpage - 1);
+          else 
+            this.applyFilter(this.currentpage - 1);
     }, err => {
       this.openSnackBar('Error deleting scribble!');
     })
   }
 
+  applyFilter(page: number) {
+    this.notesService.getFilteredNotes(page, this.searchTerm, this.filterStatus, this.filterPriority).subscribe(res => {
+      console.log(res);
+      this.notes = res[this.content];
+      this.lastpage = res[this.last];
+      this.totalpages = res[this.totalPages];
+      this.totalnotes = res[this.totalElements];
+      
+      this.loading = false;
+      this.error = false;
+
+      this.notesArraySize = this.notes.length;
+    }, err => {
+      this.error = true;
+      console.log(err);
+    });
+  }
+
+  onClickFilter() {
+    console.log(this.searchTerm, this.filterStatus, this.filterPriority);
+    this.applyFilter(0);
+  }
+
+  canFilter(): boolean {
+    if(this.searchTerm === '' && this.filterStatus === '' && this.filterPriority === '')
+      return true;
+    return false;
+  }
+
+  resetFilter() {
+    this.searchTerm = '';
+    this.filterStatus = '';
+    this.filterPriority = '';
+
+    // get all notes after clearing filter
+    this.currentpage = 1;
+    this.getMyNotes(0);
+  }
+
   nextPage() {
     this.currentpage += 1;
-    this.getMyNotes(this.currentpage - 1);
+
+    // check if filters are active
+    if(this.canFilter())
+      this.getMyNotes(this.currentpage - 1);
+    else
+      this.applyFilter(this.currentpage - 1);
   }
 
   previousPage() {
     this.currentpage -= 1;
-    this.getMyNotes(this.currentpage - 1);
+
+    // check if filters are active
+    if(this.canFilter())
+      this.getMyNotes(this.currentpage - 1);
+    else
+      this.applyFilter(this.currentpage - 1);
   }
 
   isFirstPage(): boolean {

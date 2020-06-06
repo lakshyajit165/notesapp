@@ -27,7 +27,7 @@
 
 .title {
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
 }
 
 .notes {
@@ -50,7 +50,7 @@
 }
 
 mat-divider {
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
   
 mat-list-item {
@@ -111,3 +111,21 @@ mat-chip-list {
     padding-top: 50px;
     padding-bottom: 50px;
 }
+
+.search-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter-field {
+    margin-right: 5px;
+}
+
+.filter-btn {
+    margin:5px;
+}
+

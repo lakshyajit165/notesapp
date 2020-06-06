@@ -3,6 +3,8 @@ package com.lakshyajit.notes.service;
 import com.lakshyajit.notes.exception.BadRequestException;
 import com.lakshyajit.notes.exception.ResourceNotFoundException;
 import com.lakshyajit.notes.model.Notes;
+import com.lakshyajit.notes.model.Priority;
+import com.lakshyajit.notes.model.Status;
 import com.lakshyajit.notes.payload.NotesRequest;
 import com.lakshyajit.notes.payload.NotesResponse;
 import com.lakshyajit.notes.payload.PagedResponse;
@@ -141,6 +143,59 @@ public class NotesService {
                 notes.isLast()
         );
     }
+
+
+
+    public PagedResponse<NotesResponse> getFilteredNotesByUser(
+            UserPrincipal currentUser,
+            int page,
+            int size,
+            String search,
+            String status,
+            String priority
+    ) {
+
+//        System.out.println("------------------------"+search+"----------------------------------");
+        validatePageNumberAndSize(page, size);
+
+        String email = currentUser.getEmail();
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "updatedAt");
+
+        Page<Notes> notes;
+
+        if(priority.equals("") && status.equals("")){
+            notes = notesRepository.findFilteredNotesWithSearch(email, search,  pageable);
+        }else if(status.equals("")){
+            notes = notesRepository.findFilteredNotesWithPriority(email, search, Priority.valueOf(priority), pageable);
+
+        }else if(priority.equals("")){
+            notes = notesRepository.findFilteredNotesWithStatus(email, search, Status.valueOf(status), pageable);
+
+        }else {
+            notes = notesRepository.findFilteredNotes(email, search, Status.valueOf(status), Priority.valueOf(priority), pageable);
+        }
+
+        if(notes.getNumberOfElements() == 0 || email.equals("")) {
+            return new PagedResponse<>(Collections.emptyList(), notes.getNumber(),
+                    notes.getSize(), notes.getTotalElements(), notes.getTotalPages(), notes.isLast());
+        }
+
+        List<NotesResponse> notesResponses = notes.map(note -> {
+            return ModelMapper.mapNoteToNoteResponse(note);
+        }).getContent();
+
+        return new PagedResponse<>(
+                notesResponses,
+                notes.getNumber(),
+                notes.getSize(),
+                notes.getTotalElements(),
+                notes.getTotalPages(),
+                notes.isLast()
+        );
+    }
+
+
 
 
     public NotesResponse getNoteById(Long noteId) {

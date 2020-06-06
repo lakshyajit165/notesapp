@@ -2,6 +2,8 @@ package com.lakshyajit.notes.controller;
 
 import com.lakshyajit.notes.exception.BadRequestException;
 import com.lakshyajit.notes.model.Notes;
+import com.lakshyajit.notes.model.Priority;
+import com.lakshyajit.notes.model.Status;
 import com.lakshyajit.notes.payload.ApiResponse;
 import com.lakshyajit.notes.payload.NotesRequest;
 import com.lakshyajit.notes.payload.NotesResponse;
@@ -93,6 +95,23 @@ public class NotesController {
                                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return notesService.getCompletedNotesByUser(currentUser, page, size);
     }
+
+    // get notes by filter
+    @GetMapping("/mynotes/filtered")
+    @PreAuthorize("hasRole('USER')")
+    public PagedResponse<NotesResponse> getFilteredNotesByUser(
+            @CurrentUser UserPrincipal currentUser,
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "priority", required = false) String priority,
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size
+            ) {
+//        System.out.println("------------------------"+status+"-------------------------------");
+
+        return notesService.getFilteredNotesByUser(currentUser, page, size, search, status, priority);
+    }
+
 
     @PutMapping("/{noteId}")
     @PreAuthorize("hasRole('USER')")

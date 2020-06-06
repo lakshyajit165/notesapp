@@ -1,6 +1,8 @@
 package com.lakshyajit.notes.repository;
 
 import com.lakshyajit.notes.model.Notes;
+import com.lakshyajit.notes.model.Priority;
+import com.lakshyajit.notes.model.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +24,49 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 
     @Query(value = "SELECT n from Notes n WHERE author = :authorEmail AND status = 'COMPLETED'")
     Page<Notes> findByStatusCompleted(@Param("authorEmail") String authorMail, Pageable pageable);
+
+    @Query(value = "SELECT n from Notes n WHERE n.author = :authorEmail "
+            +"AND (n.title LIKE concat(concat('%',:search),'%') OR n.description LIKE concat(concat('%',:search),'%'))"
+            +" AND (n.status = :status AND n.priority = :priority)")
+    Page<Notes> findFilteredNotes(
+            @Param("authorEmail") String authorMail,
+            @Param("search") String search,
+            @Param("status") Status status,
+            @Param("priority") Priority priority,
+            Pageable pageable
+    );
+
+    @Query(value = "SELECT n from Notes n WHERE author = :authorEmail "
+            +"AND (title LIKE concat(concat('%',:search),'%') OR description LIKE concat(concat('%',:search),'%'))"
+            +" AND status = :status")
+    Page<Notes> findFilteredNotesWithStatus(
+            @Param("authorEmail") String authorMail,
+            @Param("search") String search,
+            @Param("status") Status status,
+            Pageable pageable
+    );
+
+    @Query(value = "SELECT n from Notes n WHERE author = :authorEmail "
+            +"AND (title LIKE concat(concat('%',:search),'%') OR description LIKE concat(concat('%',:search),'%'))"
+            +" AND priority = :priority AND status != com.lakshyajit.notes.model.Status.COMPLETED")
+    Page<Notes> findFilteredNotesWithPriority(
+            @Param("authorEmail") String authorMail,
+            @Param("search") String search,
+            @Param("priority") Priority priority,
+            Pageable pageable
+    );
+
+    @Query(value = "SELECT n from Notes n WHERE author = :authorEmail "
+            +"AND (title LIKE concat(concat('%',:search),'%') "
+            +"OR description LIKE concat(concat('%',:search),'%'))"
+            +"AND status != com.lakshyajit.notes.model.Status.COMPLETED")
+
+    Page<Notes> findFilteredNotesWithSearch(
+            @Param("authorEmail") String authorMail,
+            @Param("search") String search,
+
+            Pageable pageable
+    );
 
     long countByAuthor(String authorMail);
 
