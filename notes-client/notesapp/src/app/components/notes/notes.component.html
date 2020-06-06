@@ -10,7 +10,7 @@
     <div class="search-bar">
 
     </div>
-    <div class="notes-empty" *ngIf="notesEmpty()">
+    <div class="notes-empty" *ngIf="notesEmpty() && totalnotes === 0">
       <h2 class="mat-display-1">No scribbles created yet!</h2>
       <p class="mat-title">Click <a routerLink="/home/scribbles/add" style="text-decoration: none; color: blue;">here </a> to create one.</p>
     </div>

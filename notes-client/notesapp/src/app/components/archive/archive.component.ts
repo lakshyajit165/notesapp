@@ -47,6 +47,7 @@ export class ArchiveComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.currentpage = 1;
     this.getCompletedNotes(0);
   }
 
@@ -54,13 +55,19 @@ export class ArchiveComponent implements OnInit {
   content: string = 'content';
   last: string = 'last';
   totalPages: string = 'totalPages';
+  totalElements: string = 'totalElements';
 
+  
   lastpage: boolean;
   totalpages: number;
+  currentpage: number = 1;
+  totalnotes: number;
   notes: INoteResponse[];
   loading: boolean = true;
   error: boolean = false;
   
+  notesArraySize: number;
+
   animal: string;
   name: string;
 
@@ -73,7 +80,9 @@ export class ArchiveComponent implements OnInit {
       this.notes = res[this.content];
       this.lastpage = res[this.last];
       this.totalpages = res[this.totalPages];
+      this.totalnotes = res[this.totalElements];
       
+      this.notesArraySize = this.notes.length;
       this.loading = false;
       this.error = false;
 
@@ -101,6 +110,23 @@ export class ArchiveComponent implements OnInit {
   }
 
 
+  // openEditDialog(note: INoteResponse) {
+  //   const dialogRef = this.dialog.open(EditCompletedNoteDialog, {
+  //     maxHeight: '100vh',
+  //     data: {noteData: note},
+  //     disableClose: true
+  //   });
+    
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     // console.log(result);
+  //     if(result){
+  //       this.getCompletedNotes(0);
+       
+  //     }
+        
+  //   });
+  // }
+
   openEditDialog(note: INoteResponse) {
     const dialogRef = this.dialog.open(EditCompletedNoteDialog, {
       maxHeight: '100vh',
@@ -110,29 +136,74 @@ export class ArchiveComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
-      if(result){
-        this.getCompletedNotes(0);
-        // this.themeService.isDarkTheme.subscribe(res => {
-        //   console.log(res);
-        // }, err => {
-        //   this.toggleDarkTheme(false);
-        // });
-     
+      console.log(result, this.totalnotes);
+      if(result && (this.totalnotes-1) % 8 === 0 && (this.totalnotes-1) !== 0){
+
+        this.currentpage = this.currentpage - 1;
+        console.log(this.currentpage);
       }
+      
+      console.log(this.currentpage);
+      this.getCompletedNotes(this.currentpage - 1);
+       
+      
         
     });
   }
 
+  // deleteNote(id: number) {
+  //   this.notesService.deleteNote(id).subscribe(res => {
+      
+  //     // show snackbar and load the notes
+  //     console.log(this.totalnotes, this.totalnotes);
+  
+  //     if(this.totalnotes % 8 === 0 && this.totalnotes !== 0)
+  //       this.currentpage = this.currentpage - 1;
+
+  //     this.openSnackBar('Scribble deleted!');
+  //     this.getCompletedNotes(0);
+  //   }, err => {
+  //     this.openSnackBar('Error deleting scribble!');
+  //   })
+  // }
   deleteNote(id: number) {
     this.notesService.deleteNote(id).subscribe(res => {
       
+      this.totalnotes -= 1;
       // show snackbar and load the notes
       this.openSnackBar('Scribble deleted!');
-      this.getCompletedNotes(0);
+
+      if(this.totalnotes % 8 === 0 && this.totalnotes !== 0)
+        this.currentpage = this.currentpage - 1;
+      this.getCompletedNotes(this.currentpage - 1);
     }, err => {
       this.openSnackBar('Error deleting scribble!');
     })
   }
+
+  nextPage() {
+    this.currentpage += 1;
+    this.getCompletedNotes(this.currentpage - 1);
+  }
+
+  previousPage() {
+    this.currentpage -= 1;
+    this.getCompletedNotes(this.currentpage - 1);
+  }
+
+  isFirstPage(): boolean {
+    if(this.currentpage === 1)
+      return true;
+  }
+
+  isLastPage(): boolean {
+    return this.lastpage;
+  }
+
+  notesEmpty() : boolean {
+    return this.notesArraySize === 0;
+  }
+
 
   openSnackBar(msg: string) {
     this._snackBar.open(msg, 'Close', {
@@ -273,6 +344,9 @@ export class EditCompletedNoteDialog implements OnInit{
       verticalPosition: this.verticalPosition,
     });
   }
+
+
+  
 
   
 

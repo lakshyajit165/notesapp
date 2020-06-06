@@ -103,15 +103,22 @@ export class NotesComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
-      if(result){
-        this.getMyNotes(this.currentpage - 1);
+      console.log(result, this.totalnotes);
+      if(result && (this.totalnotes-1) % 8 === 0 && (this.totalnotes-1) !== 0){
+
+        this.currentpage = this.currentpage - 1;
+        console.log(this.currentpage);
+      }
+      
+      console.log(this.currentpage);
+      this.getMyNotes(this.currentpage - 1);
         // this.themeService.isDarkTheme.subscribe(res => {
         //   console.log(res);
         // }, err => {
         //   this.toggleDarkTheme(false);
         // });
      
-      }
+      
         
     });
   }

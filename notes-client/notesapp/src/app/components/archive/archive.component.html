@@ -8,9 +8,10 @@
            
         </div>
         <mat-divider></mat-divider>
-        <div class="search-bar">
-    
-        </div>
+        <div class="notes-empty" *ngIf="notesEmpty()">
+            <h2 class="mat-display-1">No scribbles archived yet!</h2>
+            
+          </div>
         <div class="notes-container masonry-layout">
         <mat-card class="example-card" *ngFor="let note of notes">
             <mat-card-header>
@@ -59,6 +60,16 @@
     
      
         </div>
+
+        <div class="pagination" *ngIf="!notesEmpty()">
+            <button mat-mini-fab color="accent" [disabled]="isFirstPage()" (click)="previousPage()" class="prev" aria-label="Example icon button with a menu icon">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <p class="mat-title page-number">Page {{ this.currentpage }} / {{ this.totalpages }}</p>
+            <button mat-mini-fab color="accent" [disabled]="isLastPage()" (click)="nextPage()" class="next" aria-label="Example icon button with a menu icon">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
     </div>
     
     </section>
