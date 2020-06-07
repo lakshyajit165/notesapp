@@ -36,8 +36,8 @@
         
       </form>
       <div style="padding-right: 30px; margin-bottom: 20px; text-align: right;">
-        <button mat-stroked-button color="primary" [disabled]="canFilter()" (click)="onClickFilter()" class="filter-btn">Apply Filter</button>
-        <button mat-stroked-button color="primary" [disabled]="canFilter()" (click)="resetFilter()" class="filter-btn">Clear Filter</button>
+        <button mat-stroked-button color="primary" [disabled]="canFilter()" (click)="onClickFilter()" class="filter-btn"><mat-icon>sort</mat-icon>Filter</button>
+        <button mat-stroked-button color="primary" [disabled]="canFilter()" (click)="resetFilter()" class="filter-btn"><mat-icon>clear</mat-icon>Clear</button>
       </div>
       
     </div>
@@ -45,6 +45,7 @@
     
     <div class="notes-empty" *ngIf="notesEmpty() && totalnotes === 0">
       <h2 class="mat-display-1">No scribbles created yet!</h2>
+      <p class="mat-title">(or no scribbles matching this filter)</p>
       <p class="mat-title">Click <a routerLink="/home/scribbles/add" style="text-decoration: none; color: blue;">here </a> to create one.</p>
     </div>
     <div class="notes-container masonry-layout">

@@ -20,3 +20,35 @@
     text-align:center;
 }
 
+.fab {
+    margin-right:5px;
+    margin-left: 5px;
+}
+
+.social-link {
+    text-decoration: none;
+}
+
+.facebook {
+    color: #3b5998; 
+}
+
+.instagram {
+    color: #fe4164;
+}
+
+.github {
+    color: black;
+}
+
+.linkedin {
+    color: #0e76a8;
+}
+
+.twitter {
+    color: #00acee;
+}
+
+.medium {
+    color: #00ab6c;
+}
