@@ -3,9 +3,6 @@ sudo: required
 services:
     - docker
 
-branches:
-    only:
-        - master    
 
 before_install:
     - docker build -t lakshyajit165/notesapp .
