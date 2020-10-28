@@ -1,0 +1,37 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$my-theme-primary: mat-palette($mat-blue);
+$my-theme-accent: mat-palette($mat-pink);
+$my-theme-warn: mat-palette($mat-red);
+$my-theme-font: Questrial, sans-serif;
+$custom-typography: mat-typography-config($font-family: $my-theme-font);
+
+$my-theme: mat-light-theme($my-theme-primary, $my-theme-accent, $my-theme-warn);
+
+@include angular-material-theme($my-theme);
+@include mat-core($custom-typography);
+
+// Our dark theme
+.dark-theme {
+    color: $light-primary-text;
+    $dark-primary: mat-palette($mat-blue);
+    $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+    $dark-warn: mat-palette($mat-teal, A100);
+    $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+  
+    @include angular-material-theme($dark-theme);
+  }
+
+// light theme(default)
+.light-theme {
+    $light-theme-primary: mat-palette($mat-blue);
+    $light-theme-accent: mat-palette($mat-deep-orange, A100);
+    $light-theme-warn: mat-palette($mat-red);
+    $light-theme-font: Questrial, sans-serif;
+    $custom-typography: mat-typography-config($font-family: $light-theme-font);
+
+    $light-theme: mat-light-theme($light-theme-primary, $light-theme-accent, $light-theme-warn);
+    @include angular-material-theme($light-theme);
+}

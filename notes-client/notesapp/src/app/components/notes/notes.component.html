@@ -1,0 +1,111 @@
+<!-- <p>notes works!</p> -->
+<section class="container">
+
+<div class="notes">
+    <div class="title">
+        <h1 class="mat-display-2" style="margin-bottom: 15px">My Scribbles</h1>
+       
+    </div>
+    <div class="search-bar" >
+      <form class="search-form" >
+        <mat-form-field class="filter-field" appearance="outline">
+          <mat-label>Search your scribbles</mat-label>
+          <input matInput [(ngModel)]="searchTerm" name="searchTerm">
+         
+        </mat-form-field>
+        
+        <mat-form-field class="filter-field" appearance="outline">
+          <mat-label>Filter by Priority</mat-label>
+          <mat-select [(ngModel)]="filterPriority" name="filterPriority">
+            <mat-option value="HIGH">High</mat-option>
+            <mat-option value="MEDIUM">Medium </mat-option>
+            <mat-option value="LOW">Low</mat-option>
+          </mat-select>
+        </mat-form-field>
+       
+        <mat-form-field class="filter-field" appearance="outline">
+          <mat-label>Filter by Status</mat-label>
+          <mat-select [(ngModel)]="filterStatus" name="filterStatus">
+            <mat-option value="NOTSTARTED">Not Started</mat-option>
+            <mat-option value="ONGOING" >On Going </mat-option>
+            
+          </mat-select>
+        </mat-form-field>
+
+        
+        
+      </form>
+      <div style="padding-right: 30px; margin-bottom: 20px; text-align: right;">
+        <button mat-stroked-button color="primary" [disabled]="canFilter()" (click)="onClickFilter()" class="filter-btn"><mat-icon>sort</mat-icon>Filter</button>
+        <button mat-stroked-button color="primary" [disabled]="canFilter()" (click)="resetFilter()" class="filter-btn"><mat-icon>clear</mat-icon>Clear</button>
+      </div>
+      
+    </div>
+    <mat-divider></mat-divider>
+    
+    <div class="notes-empty" *ngIf="notesEmpty() && totalnotes === 0">
+      <h2 class="mat-display-1">No scribbles created yet!</h2>
+      <p class="mat-title">(or no scribbles matching this filter)</p>
+      <p class="mat-title">Click <a routerLink="/home/scribbles/add" style="text-decoration: none; color: blue;">here </a> to create one.</p>
+    </div>
+    <div class="notes-container masonry-layout">
+    <mat-card class="example-card" *ngFor="let note of notes">
+        <mat-card-header>
+          <mat-card-title> 
+           <h3>{{ note.title }}</h3>
+        </mat-card-title>
+          <mat-card-subtitle>Created On: {{ note.createdAt | date:'dd/MM/yyyy' }}</mat-card-subtitle>
+          
+        </mat-card-header>
+       
+        <mat-card-content>
+           
+          <p class="mat-body note-description">
+            {{ note.description }}
+          </p>
+          
+          <mat-list>
+            <mat-list-item>
+              <mat-icon mat-list-icon>calendar_today</mat-icon>
+              <div mat-line class="duedate">
+                
+                <strong>Due by: </strong>
+                <span>{{ note.dueDate |  date:'dd/MM/yyyy'}}</span>
+              </div>
+              
+            </mat-list-item>
+            
+          </mat-list>
+          <div class="card-bottom">
+            <mat-chip-list style="text-align: center;">  
+                <mat-chip>
+                {{ note.priority | titlecase }}
+                </mat-chip>
+                <mat-chip>
+                    {{ note.status | titlecase }}
+                </mat-chip>
+            </mat-chip-list>
+                <div class="card-actions">
+                    <button mat-mini-fab color="primary" (click)="openEditDialog(note)" class="action-button"><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab color="primary" (click)="openDeleteDialog(note.id)" class="action-button"><mat-icon>delete_outline</mat-icon></button>
+                </div>    
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+
+  
+    </div>
+
+    <div class="pagination" *ngIf="!notesEmpty()">
+      <button mat-mini-fab color="accent" [disabled]="isFirstPage()" (click)="previousPage()" class="prev" aria-label="Example icon button with a menu icon">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <p class="mat-title page-number">Page {{ this.currentpage }} / {{ this.totalpages }}</p>
+      <button mat-mini-fab color="accent" [disabled]="isLastPage()" (click)="nextPage()" class="next" aria-label="Example icon button with a menu icon">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+</div>
+
+</section>

@@ -1,0 +1,87 @@
+<!-- <p>add-note works!</p> -->
+<section class="container">
+
+    <div class="addnote">
+        <h1 class="mat-display-2 heading">Add your scribble!</h1>
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="addnote-form" style="margin-top: 40px; margin-bottom: 30px">
+
+            <mat-form-field class="addnote-full-width" appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" [errorStateMatcher]="matcher"
+                       placeholder="Scribble Title">
+                <mat-hint>Between 10 and 80 characters</mat-hint>
+                <mat-error *ngIf="titleValue.hasError('minLength') || titleValue.hasError('maxLength') || !titleValue.hasError('required')">
+                    Please enter a valid title!
+                  </mat-error>
+                  <mat-error *ngIf="titleValue.hasError('required')">
+                    Title is <strong>required!</strong>
+                  </mat-error>
+            </mat-form-field>
+            
+            <div class="status-and-duedate">
+                <mat-form-field appearance="outline" class="status">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option *ngFor="let state of status" [value]="state">
+                        {{ state | titlecase }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="statusValue.hasError('required')">
+                       Status is <strong>required!</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="date" class="addnote-full-width">
+                    <mat-label>Due Date</mat-label>
+                    <input matInput 
+                          [matDatepicker]="picker"
+                          (dateInput)="addEvent('input', $event)"
+                          (dateChange)="addEvent('change', $event)"
+                          formControlName="date"
+                          [errorStateMatcher]="matcher"
+                          [min]="mindate"
+                        >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker style="width: 100%"></mat-datepicker>
+                    <mat-error *ngIf="dateValue.hasError('required')">
+                      Date is <strong>required!</strong>
+                    </mat-error>
+                  </mat-form-field>
+               
+            </div>
+            
+            <label id="example-radio-group-label">Priority: </label>
+        
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group priority-section"
+              formControlName="priority">
+              <mat-radio-button class="example-radio-button" *ngFor="let pt of priorities" [value]="pt">
+                {{ pt | titlecase }}
+              </mat-radio-button>
+              <!-- Your priority is {{ priority }} -->
+            </mat-radio-group>
+
+
+            <mat-form-field class="addnote-full-width" appearance="outline">
+                <mat-label>Scribble description</mat-label>
+                <textarea matInput class="description" formControlName="description" [errorStateMatcher]="matcher"></textarea>
+                <mat-hint>Between 20 and 200 characters</mat-hint>
+                <mat-error *ngIf="descriptionValue.hasError('minLength') || descriptionValue.hasError('maxLength') || !descriptionValue.hasError('required')">
+                    Please enter a valid description!
+                  </mat-error>
+                  <mat-error *ngIf="descriptionValue.hasError('required')">
+                    Description is <strong>required!</strong>
+                  </mat-error>
+            </mat-form-field>
+            <div class="submit-btn">
+              <button mat-raised-button type="submit" [disabled]="!formGroup.valid" color="primary" *ngIf="!loading; else elseBlock">Submit</button>
+              <ng-template #elseBlock>
+                <mat-spinner diameter="40"></mat-spinner>
+              </ng-template>
+             
+            </div>
+        </form>
+    </div>
+</section>
+    

@@ -1,0 +1,75 @@
+
+<section class="container">
+
+    <div class="notes">
+        <div class="title">
+            <h1 class="mat-display-2" style="margin-bottom: 10px">My Archive</h1>
+            <p class="mat-title">(Completed Scribbles)</p>
+           
+        </div>
+        <mat-divider></mat-divider>
+        <div class="notes-empty" *ngIf="notesEmpty()">
+            <h2 class="mat-display-1">No scribbles archived yet!</h2>
+            
+          </div>
+        <div class="notes-container masonry-layout">
+        <mat-card class="example-card" *ngFor="let note of notes">
+            <mat-card-header>
+              <mat-card-title> 
+               <h3>{{ note.title }}</h3>
+            </mat-card-title>
+              <mat-card-subtitle>Created On: {{ note.createdAt | date:'dd/MM/yyyy' }}</mat-card-subtitle>
+              
+            </mat-card-header>
+           
+            <mat-card-content>
+               
+              <p class="mat-body note-description">
+                {{ note.description }}
+              </p>
+              
+              <mat-list>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>calendar_today</mat-icon>
+                  <div mat-line class="duedate">
+                    
+                    <strong>Due by: </strong>
+                    <span>{{ note.dueDate |  date:'dd/MM/yyyy'}}</span>
+                  </div>
+                  
+                </mat-list-item>
+                
+              </mat-list>
+              <div class="card-bottom">
+                <mat-chip-list style="text-align: center;">  
+                    <mat-chip>
+                    {{ note.priority | titlecase }}
+                    </mat-chip>
+                    <mat-chip>
+                        {{ note.status | titlecase }}
+                    </mat-chip>
+                </mat-chip-list>
+                    <div class="card-actions">
+                        <button mat-mini-fab color="primary" (click)="openEditDialog(note)" class="action-button"><mat-icon>edit</mat-icon></button>
+                        <button mat-mini-fab color="primary" (click)="openDeleteDialog(note.id)" class="action-button"><mat-icon>delete_outline</mat-icon></button>
+                    </div>    
+                </div>
+            </mat-card-content>
+    
+        </mat-card>
+    
+     
+        </div>
+
+        <div class="pagination" *ngIf="!notesEmpty()">
+            <button mat-mini-fab color="accent" [disabled]="isFirstPage()" (click)="previousPage()" class="prev" aria-label="Example icon button with a menu icon">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <p class="mat-title page-number">Page {{ this.currentpage }} / {{ this.totalpages }}</p>
+            <button mat-mini-fab color="accent" [disabled]="isLastPage()" (click)="nextPage()" class="next" aria-label="Example icon button with a menu icon">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
+    </div>
+    
+    </section>
