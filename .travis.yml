@@ -1,0 +1,18 @@
+sudo: required
+
+services:
+    - docker
+
+branches:
+    only:
+        - master    
+
+before_install:
+    - docker build -t lakshyajit165/notesapp .
+
+script:
+    - echo "skipping tests"
+
+after_success:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push lakshyajit165/notesapp
