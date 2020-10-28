@@ -13,4 +13,5 @@ script:
 
 after_success:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker push lakshyajit165/notesapp
+    - docker push lakshyajit165/notes-client
+    - docker push lakshyajit165/notes
