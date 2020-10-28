@@ -5,7 +5,7 @@ services:
 
 
 before_install:
-    - docker build -t lakshyajit165/notes-client ./notes-client
+    - docker build -t lakshyajit165/notes-client ./notes-client/notesapp
     - docker build -t lakshyajit165/notes ./notes
 
 script:
