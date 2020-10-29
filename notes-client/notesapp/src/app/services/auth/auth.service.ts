@@ -9,7 +9,7 @@ import { IUserLogin } from '../../model/IUserLogin';
 })
 export class AuthService {
 
-  serviceRoute = 'http://localhost:5000/';
+  serviceRoute = 'http://1ocalhost:5000/';
   constructor(
     private http: HttpClient
   ) { }

@@ -1,0 +1,61 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    
+    "containerDefinitions": [
+      {
+        "name": "notes-client",
+        "links": [
+            "notes-service"
+        ],
+        "image": "lakshyajit165/notes-client",
+        "essential": false,
+        "portMappings": [
+            {
+              "hostPort": 4200,
+              "containerPort": 4200
+            }
+        ],
+        "memory": 256
+        
+      },
+      {
+        "name": "notes-service",
+        "links": [
+            "notesdb"
+        ],
+        "image": "lakshyajit165/notes",
+        "essential": false,
+        "portMappings": [
+            {
+              "hostPort": 5000,
+              "containerPort": 5000
+            }
+        ],
+        "memory": 256
+        
+      },
+      {
+        "name": "notesdb",
+        "image": "mysql:8",
+        "essential": true,
+        "portMappings": [
+            {
+              "hostPort": 3306,
+              "containerPort": 3306
+            }
+        ],
+        "environment": [
+            {
+                "name": "MYSQL_ROOT_PASSWORD",
+                "value": "root"
+            },
+            {
+                "name": "MYSQL_DATABASE",
+                "value": "notes"
+            }
+        ],
+        "memory": 256
+        
+      }
+    ]
+  }

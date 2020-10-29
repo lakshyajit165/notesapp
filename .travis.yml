@@ -15,3 +15,16 @@ after_success:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker push lakshyajit165/notes-client
     - docker push lakshyajit165/notes
+
+deploy:
+    provider: elasticbeanstalk
+    region: ap-south-1
+    app: notesapp
+    env: Notesapp-env
+    bucket_name: elasticbeanstalk-ap-south-1-518712408052
+    bucket_path: notesapp
+    on:
+        branch: dev
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    
